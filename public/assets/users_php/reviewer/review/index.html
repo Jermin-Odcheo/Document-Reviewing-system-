@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Annotator and Review System</title>
+    <!-- Load PDF.js first -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <!-- Load PDF.js viewer -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf_viewer.min.js"></script>
+    <!-- Load styles after scripts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf_viewer.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div id="toolbar">
+            <div id="toolbarViewer">
+                <div class="upload-container">
+                    <input type="file" id="fileInput" accept="application/pdf" />
+                    <button id="uploadButton" type="button">Upload PDF</button>
+                </div>
+                <div class="splitToolbarButton">
+                    <button id="previous" class="toolbarButton">Previous</button>
+                    <button id="next" class="toolbarButton">Next</button>
+                </div>
+                <label>Page: <span id="pageNumber">1</span> / <span id="pageCount">1</span></label>
+                <!-- Keep only this set of annotation controls -->
+                <div class="annotationControls">
+                    <input type="color" id="colorPicker" value="#ffeb3b">
+                    <button id="clearAnnotations" class="toolbarButton">
+                        <i class="fas fa-eraser"></i> Clear
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        
+        <div id="outerContainer">
+            <div id="mainContainer">
+                <div id="viewerContainer">
+                    <div id="viewer" class="pdfViewer"></div>
+                </div>
+                <div id="commentsPanel">
+                    <h3>Comments</h3>
+                    <div id="commentList"></div>
+                    <div id="commentForm" style="display: none;">
+                        <textarea id="commentInput" placeholder="Add your comment..."></textarea>
+                        <button id="saveComment">Save</button>
+                        <button id="cancelComment">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load our scripts -->
+    <script>
+        // Initialize PDF.js worker
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+    <script src="script.js"></script>
+    <script src="annotator.js"></script>
+</body>
+</html>
