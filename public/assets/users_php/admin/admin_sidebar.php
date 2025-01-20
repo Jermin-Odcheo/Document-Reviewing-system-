@@ -9,9 +9,12 @@
 <body>
 <header>
     <nav>
-        <img href="#" src="../img/SLU Logo.png" class="mb-2" style="height: 50px;">
-        <link rel="stylesheet" href="assets/styles/index.css">
+        <img href="#" src="../img/SLU Logo.png" alt="HomeLogo" class="mb-2" style="height: 50px;">
+        <li><a href="admin_dashboard.php" class="nav-menu">Dashboard</a></li>
+        <li><a href="admin_logs.pgp" class="nav-menu">Logs</a></li>
+        <li><a href="admin_user_manager.php" class="nav-menu">User Accounts Management</a></li>
     </nav>
+    <link rel="stylesheet" href="assets/styles/index.css">
 </header>
 </body>
 </html>

@@ -1,0 +1,15 @@
+body{
+
+}
+
+col-xs-6 {
+    display: flex;
+    justify-content: space-between;
+}
+
+cold-md-1{
+    display: flex;
+    justify-content: space-between;
+
+}
+

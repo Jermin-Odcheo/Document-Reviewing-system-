@@ -9,9 +9,12 @@
 <body>
 <header>
     <nav>
-        <img href="#" src="../img/SLU Logo.png" class="mb-2" style="height: 50px;">
-        <link rel="stylesheet" href="assets/styles/index.css">
+        <img href="#" src="../img/SLU Logo.png" alt="HomeLogo" class="mb-2" style="height: 50px;">
+        <li><a href="upld_dashboard.php" class="nav-menu">Dashboard</a></li>
+        <li><a href="upld_documents.php" class="nav-menu">Documents</a></li>
+        <li><a href="upld_status.php" class="nav-menu">Reviews and Status</a></li>
     </nav>
+    <link rel="stylesheet" href="assets/styles/index.css">
 </header>
 </body>
 </html>
