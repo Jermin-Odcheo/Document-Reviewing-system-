@@ -11,33 +11,22 @@ if (typeof pdfjsLib === 'undefined' || typeof pdfjsViewer === 'undefined') {
 
             // Initialize properties
             this.pdfDoc = null;
-            // this.pageNum = 1; // Removed: Not needed, pdfViewer.currentPageNumber tracks this
-            this.scale = 1.5;
+            this.pageNum = 1;
+            this.scale = 1.0;
 
-            // Create event bus first
-            this.eventBus = new pdfjsViewer.EventBus();
-
-            // Initialize containers
-            this.viewerContainer = document.getElementById('viewerContainer');
+            // Initialize elements
             this.viewer = document.getElementById('viewer');
-
-            if (!this.viewerContainer || !this.viewer) {
-                throw new Error('PDF viewer containers not found');
-            }
-
-            // Get DOM Elements
-            this.fileInput = document.getElementById('fileInput');
-            this.uploadButton = document.getElementById('uploadButton');
+            this.viewerContainer = document.getElementById('viewerContainer');
             this.previousButton = document.getElementById('previous');
             this.nextButton = document.getElementById('next');
             this.pageNumber = document.getElementById('pageNumber');
             this.pageCount = document.getElementById('pageCount');
+            this.fileInput = document.getElementById('fileInput');
+            this.uploadButton = document.getElementById('uploadButton');
 
-            if (!this.fileInput || !this.uploadButton) {
-                throw new Error('Required elements are missing');
-            }
+            // Initialize event bus
+            this.eventBus = new pdfjsViewer.EventBus();
 
-            // Initialize viewer
             this.initializeViewer();
             this.bindEvents();
         }
@@ -61,6 +50,11 @@ if (typeof pdfjsLib === 'undefined' || typeof pdfjsViewer === 'undefined') {
                     l10n: pdfjsViewer.NullL10n,
                     useOnlyCssZoom: false,
                     enablePrintAutoRotate: false,
+                    scrollMode: 0,  // Single page scrolling
+                    singlePageMode: true,  // Single page mode
+                    defaultViewport: { scale: 1 },
+                    enableScripting: false, // Disable default toolbar
+                    toolbar: null // Disable default toolbar
                 });
 
                 // Set up link service
@@ -93,14 +87,18 @@ if (typeof pdfjsLib === 'undefined' || typeof pdfjsViewer === 'undefined') {
             // Navigation Events
             this.previousButton.addEventListener('click', () => {
                 if (this.pdfViewer.currentPageNumber <= 1) return;
-                const newPage = this.pdfViewer.currentPageNumber - 1;
-                this.pdfViewer.scrollPageIntoView({ pageNumber: newPage });
+                const newPageNum = this.pdfViewer.currentPageNumber - 1;
+                this.pdfViewer.currentPageNumber = newPageNum;
+                this.pdfViewer.scrollPageIntoView({ pageNumber: newPageNum });
+                this.updatePageNumber();
             });
 
             this.nextButton.addEventListener('click', () => {
                 if (!this.pdfDoc || this.pdfViewer.currentPageNumber >= this.pdfDoc.numPages) return;
-                const newPage = this.pdfViewer.currentPageNumber + 1;
-                this.pdfViewer.scrollPageIntoView({ pageNumber: newPage });
+                const newPageNum = this.pdfViewer.currentPageNumber + 1;
+                this.pdfViewer.currentPageNumber = newPageNum;
+                this.pdfViewer.scrollPageIntoView({ pageNumber: newPageNum });
+                this.updatePageNumber();
             });
 
             // Page Change Event
@@ -110,13 +108,15 @@ if (typeof pdfjsLib === 'undefined' || typeof pdfjsViewer === 'undefined') {
         }
 
         updatePageNumber() {
-            // Update the display of the page number and count
-            this.pageNumber.textContent = this.pdfViewer.currentPageNumber;
-            this.pageCount.textContent = this.pdfDoc ? this.pdfDoc.numPages : '-';
+            requestAnimationFrame(() => {
+                // Update the display of the page number and count
+                this.pageNumber.textContent = this.pdfViewer.currentPageNumber;
+                this.pageCount.textContent = this.pdfDoc ? this.pdfDoc.numPages : '-';
 
-            // Update button states
-            this.previousButton.disabled = this.pdfViewer.currentPageNumber <= 1;
-            this.nextButton.disabled = this.pdfViewer.currentPageNumber >= (this.pdfDoc?.numPages || 1);
+                // Update button states
+                this.previousButton.disabled = this.pdfViewer.currentPageNumber <= 1;
+                this.nextButton.disabled = this.pdfViewer.currentPageNumber >= (this.pdfDoc?.numPages || 1);
+            });
         }
 
         async loadPDF(file) {

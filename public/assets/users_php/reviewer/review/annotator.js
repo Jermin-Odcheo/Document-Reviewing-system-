@@ -5,101 +5,139 @@ class PDFAnnotator {
         this.selectedHighlight = null;
         this.currentColor = '#ffeb3b';
         this.pdfViewer = window.pdfViewer.pdfViewer;
+        this.eventBus = window.pdfViewer.eventBus;
         
         // Get UI elements
         this.commentForm = document.getElementById('commentForm');
         this.commentInput = document.getElementById('commentInput');
         this.commentList = document.getElementById('commentList');
+        this.viewerContainer = document.getElementById('viewerContainer');
+        this.colorPicker = document.getElementById('colorPicker');
+        
+        // Bind the event handler
+        this.handleSelectionBound = this.handleSelection.bind(this);
         
         this.init();
-        this.bindEvents();
     }
 
     init() {
         this.setupToolbar();
         this.setupColorPicker();
-        this.setupCommentFormListeners();
+        this.bindEvents();
+        console.log('PDFAnnotator initialized');
     }
 
     setupToolbar() {
         const highlighterBtn = document.getElementById('highlighterTool');
         if (highlighterBtn) {
-            highlighterBtn.addEventListener('click', () => this.toggleHighlighting());
-        }
-
-        const clearBtn = document.getElementById('clearAnnotations');
-        if (clearBtn) {
-            clearBtn.addEventListener('click', () => this.clearAnnotations());
+            highlighterBtn.addEventListener('click', () => {
+                this.toggleHighlighting();
+            });
         }
     }
 
     setupColorPicker() {
-        const colorPicker = document.getElementById('colorPicker');
-        colorPicker.addEventListener('input', (e) => {
-            this.currentColor = e.target.value;
-        });
+        if (this.colorPicker) {
+            this.colorPicker.addEventListener('change', (e) => {
+                this.currentColor = e.target.value;
+                console.log('Color changed to:', this.currentColor);
+            });
+        }
     }
 
-    setupCommentFormListeners() {
-        document.getElementById('saveComment').addEventListener('click', () => {
-            this.saveComment();
-        });
-
-        document.getElementById('cancelComment').addEventListener('click', () => {
-            this.hideCommentForm();
-        });
+    toggleHighlighting() {
+        this.isHighlighting = !this.isHighlighting;
+        const highlighterButton = document.getElementById('highlighterTool');
+        
+        if (this.isHighlighting) {
+            console.log('Highlighting mode enabled');
+            highlighterButton.classList.add('active');
+            document.addEventListener('mouseup', this.handleSelectionBound);
+        } else {
+            console.log('Highlighting mode disabled');
+            highlighterButton.classList.remove('active');
+            document.removeEventListener('mouseup', this.handleSelectionBound);
+        }
     }
 
-    handleHighlight(event) {
+    handleSelection(event) {
         if (!this.isHighlighting) return;
 
         const selection = window.getSelection();
         if (!selection.rangeCount || selection.isCollapsed) return;
 
         const range = selection.getRangeAt(0);
-        if (!range.toString().trim()) return;
+        const textContent = range.toString().trim();
+        if (!textContent) return;
 
-        const textLayer = range.commonAncestorContainer.closest('.textLayer');
-        if (!textLayer) return;
+        // Find the text layer
+        let textLayer = null;
+        let node = range.commonAncestorContainer;
+        while (node && !textLayer) {
+            if (node.classList && node.classList.contains('textLayer')) {
+                textLayer = node;
+            }
+            node = node.parentNode;
+        }
+
+        if (!textLayer) {
+            console.log('No text layer found');
+            return;
+        }
 
         const page = textLayer.closest('.page');
-        if (!page) return;
+        if (!page) {
+            console.log('No page found');
+            return;
+        }
 
         const pageNumber = parseInt(page.dataset.pageNumber);
         const pageView = this.pdfViewer.getPageView(pageNumber - 1);
+        if (!pageView) {
+            console.log('No page view found');
+            return;
+        }
+
+        console.log('Creating highlight on page:', pageNumber);
+
         const viewport = pageView.viewport;
         const textLayerRect = textLayer.getBoundingClientRect();
+        const selectionRects = Array.from(range.getClientRects());
 
-        const rects = range.getClientRects();
-        const highlightRects = Array.from(rects).map(rect => ({
-            left: (rect.left - textLayerRect.left) / viewport.scale,
-            top: (rect.top - textLayerRect.top) / viewport.scale,
-            width: rect.width / viewport.scale,
-            height: rect.height / viewport.scale
-        }));
+        const highlights = selectionRects.map(rect => {
+            return {
+                left: (rect.left - textLayerRect.left) / viewport.scale,
+                top: (rect.top - textLayerRect.top) / viewport.scale,
+                width: rect.width / viewport.scale,
+                height: rect.height / viewport.scale
+            };
+        });
 
+        this.createHighlight(pageNumber, highlights, textContent);
+        selection.removeAllRanges();
+    }
+
+    createHighlight(pageNumber, rects, text) {
         const highlight = {
-            id: Date.now(),
+            id: `highlight-${Date.now()}`,
             pageNumber,
-            rects: highlightRects,
+            rects,
+            text,
             color: this.currentColor,
-            text: range.toString(),
             comment: ''
         };
 
+        console.log('Creating new highlight:', highlight);
         this.highlights.push(highlight);
         this.renderHighlight(highlight);
+        this.saveHighlights();
         this.showCommentForm(highlight);
-        this.updateCommentsList();
-
-        selection.removeAllRanges();
     }
 
     renderHighlight(highlight) {
         const pageView = this.pdfViewer.getPageView(highlight.pageNumber - 1);
         if (!pageView) return;
 
-        // Create annotation layer if it doesn't exist
         let annotationLayer = pageView.div.querySelector('.annotationLayer');
         if (!annotationLayer) {
             annotationLayer = document.createElement('div');
@@ -108,126 +146,97 @@ class PDFAnnotator {
         }
 
         highlight.rects.forEach(rect => {
-            const highlightEl = document.createElement('div');
-            highlightEl.className = 'pdf-highlight';
-            highlightEl.dataset.highlightId = highlight.id;
-            highlightEl.style.left = `${rect.left}px`;
-            highlightEl.style.top = `${rect.top}px`;
-            highlightEl.style.width = `${rect.width}px`;
-            highlightEl.style.height = `${rect.height}px`;
-            highlightEl.style.backgroundColor = highlight.color + '80'; // 50% opacity
+            const element = document.createElement('div');
+            element.className = 'pdfViewer-highlight';
+            element.dataset.highlightId = highlight.id;
+            element.style.position = 'absolute';
+            element.style.backgroundColor = `${highlight.color}80`; // 50% opacity
+            element.style.left = `${rect.left}px`;
+            element.style.top = `${rect.top}px`;
+            element.style.width = `${rect.width}px`;
+            element.style.height = `${rect.height}px`;
             
-            // Add click handler to edit comment
-            highlightEl.addEventListener('click', () => {
-                this.showCommentForm(highlight);
-            });
+            element.addEventListener('click', () => this.showCommentForm(highlight));
+            annotationLayer.appendChild(element);
             
-            annotationLayer.appendChild(highlightEl);
+            console.log('Rendered highlight element:', element);
         });
     }
 
     renderAllHighlights() {
         // Clear existing highlights
-        document.querySelectorAll('.pdf-highlight').forEach(el => el.remove());
+        document.querySelectorAll('.pdfViewer-highlight').forEach(el => el.remove());
         
         // Render all highlights
-        this.highlights.forEach(highlight => {
-            this.renderHighlight(highlight);
-        });
-    }
-
-    toggleHighlighting() {
-        this.isHighlighting = !this.isHighlighting;
-        const highlighterButton = document.getElementById('highlighterTool');
-        highlighterButton.classList.toggle('active', this.isHighlighting);
-
-        const viewerContainer = document.getElementById('viewerContainer');
-        if (this.isHighlighting) {
-            viewerContainer.style.cursor = 'text';
-            viewerContainer.addEventListener('mouseup', this.handleHighlight.bind(this));
-        } else {
-            viewerContainer.style.cursor = 'default';
-            viewerContainer.removeEventListener('mouseup', this.handleHighlight.bind(this));
-        }
+        this.highlights.forEach(highlight => this.renderHighlight(highlight));
     }
 
     showCommentForm(highlight) {
         this.selectedHighlight = highlight;
-        this.commentForm.style.display = 'block';
-        this.commentInput.value = highlight.comment || '';
-        this.commentInput.focus();
-    }
-
-    hideCommentForm() {
-        this.commentForm.style.display = 'none';
-        this.selectedHighlight = null;
-        this.commentInput.value = '';
-    }
-
-    saveComment() {
-        if (this.selectedHighlight) {
-            this.selectedHighlight.comment = this.commentInput.value.trim();
-            this.hideCommentForm();
-            this.updateCommentsList();
+        if (this.commentForm) {
+            this.commentForm.style.display = 'block';
+            this.commentInput.value = highlight.comment || '';
+            this.commentInput.focus();
         }
-    }
-
-    updateCommentsList() {
-        this.commentList.innerHTML = '';
-        
-        this.highlights.forEach((highlight, index) => {
-            const commentDiv = document.createElement('div');
-            commentDiv.className = 'comment-item';
-            commentDiv.innerHTML = `
-                <div class="comment-header">
-                    <span class="comment-number">Highlight ${index + 1}</span>
-                    <div class="comment-color" style="background-color: ${highlight.color}"></div>
-                    <button class="delete-comment" data-index="${index}">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </div>
-                <div class="comment-text">${highlight.comment || '<i>No comment</i>'}</div>
-                <div class="highlight-text">"${highlight.text}"</div>
-            `;
-            
-            // Add click handler to edit comment
-            commentDiv.addEventListener('click', () => {
-                this.showCommentForm(highlight);
-            });
-            
-            this.commentList.appendChild(commentDiv);
-        });
-    }
-
-    clearAnnotations() {
-        this.highlights = [];
-        document.querySelectorAll('.pdf-highlight').forEach(el => el.remove());
-        this.updateCommentsList();
-        this.hideCommentForm();
     }
 
     bindEvents() {
         // Re-render highlights when pages are rendered
-        this.pdfViewer.eventBus.on('pagerendered', (evt) => {
-            this.renderAllHighlights();
+        this.eventBus.on('pagerendered', () => {
+            requestAnimationFrame(() => this.renderAllHighlights());
         });
 
         // Handle page changes
-        this.pdfViewer.eventBus.on('pagechanging', () => {
-            // Wait for the page to render before re-rendering highlights
-            setTimeout(() => this.renderAllHighlights(), 100);
+        this.eventBus.on('pagechanging', () => {
+            requestAnimationFrame(() => this.renderAllHighlights());
         });
 
-        // Add click handler for delete buttons
-        this.commentList.addEventListener('click', (e) => {
-            if (e.target.closest('.delete-comment')) {
-                const index = parseInt(e.target.closest('.delete-comment').dataset.index);
-                this.highlights.splice(index, 1);
-                this.updateCommentsList();
-                this.renderAllHighlights();
-            }
+        // Save comment when form is submitted
+        if (this.commentForm) {
+            this.commentForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (this.selectedHighlight) {
+                    this.selectedHighlight.comment = this.commentInput.value;
+                    this.saveHighlights();
+                    this.commentForm.style.display = 'none';
+                }
+            });
+        }
+
+        // Load highlights when PDF is loaded
+        window.addEventListener('pdfloaded', () => {
+            console.log('PDF loaded, loading highlights');
+            this.loadHighlights();
         });
+    }
+
+    saveHighlights() {
+        if (this.pdfViewer.pdfDocument) {
+            const documentFingerprint = this.pdfViewer.pdfDocument.fingerprints[0];
+            localStorage.setItem(
+                `pdfHighlights_${documentFingerprint}`,
+                JSON.stringify(this.highlights)
+            );
+            console.log('Highlights saved:', this.highlights);
+        }
+    }
+
+    loadHighlights() {
+        if (this.pdfViewer.pdfDocument) {
+            const documentFingerprint = this.pdfViewer.pdfDocument.fingerprints[0];
+            const savedHighlights = localStorage.getItem(`pdfHighlights_${documentFingerprint}`);
+            if (savedHighlights) {
+                this.highlights = JSON.parse(savedHighlights);
+                this.renderAllHighlights();
+                console.log('Loaded highlights:', this.highlights);
+            }
+        }
     }
 }
 
-// The event listeners will be set up when the PDF is loaded via script.js
+// Initialize the annotator when the PDF is loaded
+window.addEventListener('pdfloaded', () => {
+    if (!window.annotator) {
+        window.annotator = new PDFAnnotator();
+    }
+});
