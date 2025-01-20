@@ -12,9 +12,9 @@
     <div class="container">
         <div class="header">Login</div>
         <form action="login.php" method="post">
-            <div class="idNum"> 
+            <div class="email"> 
                 <label form="idNum">ID Number:</label>
-                <input type="text" id="idNum" name="idNum" required>
+                <input type="text" id="email" name="email" required>
             </div>
 
             <div class="pwd">
