@@ -10,10 +10,12 @@
 <body>
     <div class="row">
         <div class="col-xs-6">
-            <img src="public\assets\img\Samcis logo no bg.png" class="samcis_logo">
+            <img src="assets/img/Samcis logo no bg.png" class="samcis_logo">
         </div>
         <div class="col-xs-6">
+            <div class="mb-3">
 
+            </div>
         </div>
     </div>
 </body>

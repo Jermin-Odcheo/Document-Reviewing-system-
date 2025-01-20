@@ -9,7 +9,6 @@
     <link href="index.css" rel="stylesheet">
 </head>
 <body>
-    <img src= "">
 </body>
 <?php include '/assets/users_php/general/footer.php';?>
 </html>
