@@ -1,28 +1,4 @@
-.upload-container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-.upload-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-.file-input {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-.submit-btn {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-.submit-btn:hover {
-    background-color: #45a049;
+body{
+    background-color: linear-gradient(180, #77d2E2, #FDBB2D);
+    font: ;
 }

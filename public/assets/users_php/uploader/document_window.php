@@ -1,4 +1,4 @@
-<?php include '/assets/users_php/general/header.php';?>
+<?php include '/header.php';?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +9,7 @@
     <link href="index.css" rel="stylesheet">
 </head>
 <body>
-    <img src= "">
+    <p>HEllo !</p>
 </body>
-<?php include '/assets/users_php/general/footer.php';?>
+<?php include 'footer.php';?>
 </html>

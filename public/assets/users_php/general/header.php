@@ -1,5 +1,3 @@
-<?php include '/assets/users_php/general/header.php';?>
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +7,6 @@
     <link href="index.css" rel="stylesheet">
 </head>
 <body>
-    <img src= "">
+    Header
 </body>
-<?php include '/assets/users_php/general/footer.php';?>
 </html>

@@ -8,7 +8,13 @@
     <link href="index.css" rel="stylesheet">
 </head>
 <body>
-    <img src= "">
-    
+    <div class="row">
+        <div class="col-xs-6">
+            <img src="public\assets\img\Samcis logo no bg.png" class="samcis_logo">
+        </div>
+        <div class="col-xs-6">
+
+        </div>
+    </div>
 </body>
 </html>
