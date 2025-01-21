@@ -1,3 +1,4 @@
+<?php include '../general/user_header.php';?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">

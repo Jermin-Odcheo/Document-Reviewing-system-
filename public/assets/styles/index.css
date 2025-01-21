@@ -1,5 +1,9 @@
 body{
-    background-color: linear-gradient(180, #77d2E2, #FDBB2D);
+    background-color: linear-gradient(180, hsl(189, 65%, 68%), #FDBB2D);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
 }
 
 header{
@@ -38,7 +42,7 @@ header .nav-menu{
 header .nav-menu:hover {
     color: #817616;
     padding: 1em;
-    border: 1px solid; */
+    border: 1px solid;
     box-shadow: 0px 10px #00000040 inset;
     font-weight: bolder;
     display: inline-block;
@@ -46,5 +50,9 @@ header .nav-menu:hover {
     box-sizing: border-box;
 }
 footer{
-    
+    margin-top: auto;
+    background-color: #000000;
+    color: white;
+    padding: 1rem;
+    text-align: center;
 }

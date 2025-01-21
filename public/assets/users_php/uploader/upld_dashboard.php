@@ -1,4 +1,4 @@
-<?php include '/assets/users_php/general/header.php';?>
+<?php include '../general/user_header.php';?>s
 <!DOCTYPE html>
 <html lang="en">
 <head>

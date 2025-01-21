@@ -1,4 +1,4 @@
-<?php include '/assets/users_php/general/header.php';?>
+<?php include '../general/user_header.php';?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +10,14 @@
     <link rel="icon" type="png" href="../../img/SLU Logo.png">
 </head>
 <body>
-    <img src= "">
+    <div class="d-flex">
+        <div class="sidebar">
+            <?php include "./admin_sidebar.php"?>
+        </div>
+        <div class="main-content flex-grow-1 p-3">
+            Right side temp content
+        </div>
+    </div>
 </body>
-<?php include '/assets/users_php/general/footer.php';?>
+<?php include '../general/footer.php';?>
 </html>
