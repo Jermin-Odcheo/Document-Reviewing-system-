@@ -17,9 +17,15 @@
                 <div class="card shadow extra-large-card custom-card-size">
                     <div class="card-body">
                         <form action="" method="post" enctype="multipart/form-data">
-                            <h1 class="text-left mb-4">Create Account</h1>
-                            <p class="text-left text-muted mb-4">Create a new account</p>
-
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <h1 class="text-start mb-4">Create Account</h1>
+                                <p class="text-start text-muted mb-4">Create a new account</p>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <img src="../../img/SLU Logo.png" style="height: 50px;">
+                            </div>
+                        </div> 
                             <div class="row g-4">
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">First Name</h6>
@@ -118,15 +124,8 @@ PRIVACY NOTICE
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
     <script src="../../../../src\js/show_pwd.js"></script>
 
-=======
     <?php include "./footer.php"?>
->>>>>>> Stashed changes
-=======
-    <?php include "./footer.php"?>
->>>>>>> Stashed changes
 </body>
 </html>

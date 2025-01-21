@@ -9,7 +9,7 @@
 <header>
 <link rel="stylesheet"href="../styles/index.css">
     <nav class="navbar navbar-dark bg-dark justify-content-between">
-        <img href="#" src="../../img/SLU Logo.png" class="mb-2" style="height: 50px;">    
+        <img href="#" src="../../img/SLU Logo.png" class="mb-2" style="height: 50px;">
         <a class="navbar-brand">Document Reviewer</a>
         <form class="form">
             <div class="row justify-content-right">

@@ -1,8 +1,12 @@
 body {
     min-height: 100vh;
+    margin: 0;
+}
+
+.wrapper {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    margin: 0;
 }
 
 .header{
@@ -34,6 +38,7 @@ body {
     margin-left: 280px;
     flex: 1;
     padding: 20px;
+    min-height: calc(100vh - 60px); /* Adjust 60px based on your footer height */
 }
 
 col-xs-6 {
@@ -46,10 +51,14 @@ cold-md-1{
     justify-content: space-between;
 }
 
-footer{
+footer {
     margin-top: auto;
     background-color: #000000;
     color: white;
     padding: 1rem;
     text-align: center;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    z-index: 1001;
 }

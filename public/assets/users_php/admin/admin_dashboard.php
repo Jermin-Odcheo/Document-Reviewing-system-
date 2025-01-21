@@ -10,14 +10,16 @@
     <link rel="icon" type="png" href="../../img/SLU Logo.png">
 </head>
 <body>
-    <div class="d-flex">
-        <div class="sidebar">
-            <?php include "./admin_sidebar.php"?>
+    <div class="wrapper">
+        <div class="d-flex">
+            <div class="sidebar">
+                <?php include "./admin_sidebar.php"?>
+            </div>
+            <div class="main-content flex-grow-1 p-3">
+                Right side temp content
+            </div>
         </div>
-        <div class="main-content flex-grow-1 p-3">
-            Right side temp content
-        </div>
+        <?php include '../general/footer.php';?>
     </div>
 </body>
-<?php include '../general/footer.php';?>
 </html>
