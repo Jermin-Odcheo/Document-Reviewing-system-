@@ -1,15 +1,3 @@
-<?php include '../general/user_header.php';?>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document Reviewer Landing</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet"href="../styles/index.css">
-    <link rel="icon" type="png" href="../../img/SLU Logo.png">
-</head>
-<body>
-<header>
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
@@ -38,7 +26,3 @@
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
-    <link rel="stylesheet" href="assets/styles/index.css">
-</header>
-</body>
-</html>
