@@ -290,7 +290,6 @@ class PDFAnnotator {
             }
         }
 
-        // Clear selection
         selection.removeAllRanges();
     }
 }

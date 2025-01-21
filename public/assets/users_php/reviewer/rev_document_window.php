@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>PDF Annotator and Review System</title>
+    <title>PDF Annotator</title>
     <!-- Load PDF.js first -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <!-- Load PDF.js viewer -->

@@ -108,7 +108,7 @@ class PDFAnnotator {
 
     createHighlight(pageNumber, rects, text) {
         const comment = prompt('Add a comment for this highlight:', '');
-        if (comment === null) return; // User cancelled the prompt
+        if (comment === null) return;
 
         const highlight = {
             id: `highlight-${Date.now()}`,
