@@ -87,7 +87,7 @@
 
                             <!--Go Back-->
                             <div class="text-center mt-3">
-                                <p>Changed your mind? <a href="../../index.php" class="link-secondary">Go Back</a></p>
+                                <p>Changed your mind? <a href="../../../index.php" class="link-secondary">Go Back</a></p>
                             </div>
                         </form>
                     </div>
