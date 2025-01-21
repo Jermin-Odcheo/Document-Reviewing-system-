@@ -1,4 +1,4 @@
-<?php include '/assets/users_php/general/header.php';?>
+<?php include '../general/header.php';?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,5 +11,5 @@
 <body>
     <img src= "">
 </body>
-<?php include '/assets/users_php/general/footer.php';?>
+<?php include '../general/footer.php';?>
 </html>
