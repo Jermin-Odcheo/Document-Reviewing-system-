@@ -75,7 +75,7 @@
                             <div class="form-check mt-4">
                                 <input class="form-check-input" type="checkbox" id="terms" required>
                                 <label class="form-check-label" for="terms">
-                                    I agree to all the <a href="#" id="show-terms">Terms and Privacy Policy</a>
+                                    I agree to all the <a href="./terms&privacy.php" id="show-terms">Terms and Privacy Policy</a>
                                 </label>
                             </div>
 
