@@ -151,25 +151,57 @@
 
 .pdfViewer .page {
     position: relative;
-    margin: 1px auto -8px auto;
-    border: 9px solid transparent;
+    margin: 1px auto;
+    border: none;
     background-clip: content-box;
     background-color: white;
 }
 
-.annotationLayer {
-    position: absolute !important;
+.textLayer {
+    position: absolute;
+    text-align: initial;
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
     overflow: hidden;
     opacity: 1;
-    z-index: 3;
-    pointer-events: none;
+    line-height: 1.0;
+    -webkit-text-size-adjust: none;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    z-index: 2;
 }
 
+.textLayer span, 
+.textLayer br {
+    color: transparent;
+    position: absolute;
+    white-space: pre;
+    cursor: text;
+    transform-origin: 0% 0%;
+}
 
+.textLayer .highlight {
+    margin: -1px;
+    padding: 1px;
+    background-color: rgba(180, 0, 170, 0.2);
+    border-radius: 4px;
+}
+
+.textLayer .highlight.selected {
+    background-color: rgba(0, 100, 0, 0.2);
+}
+
+.annotationLayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 3;
+}
 
 .comments-header {
     padding: 15px;
@@ -394,60 +426,29 @@
 
 .pdf-highlight {
     position: absolute;
-    pointer-events: all;
+    pointer-events: auto;
     cursor: pointer;
-    border-radius: 2px;
-    transition: background-color 0.2s;
     mix-blend-mode: multiply;
-    z-index: 1;
-    background-color: rgba(255, 235, 59, 0.4);
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    transition: all 0.2s ease;
 }
 
 .pdf-highlight:hover {
     filter: brightness(1.2);
 }
 
-.textLayer {
-    opacity: 1 !important;
-    mix-blend-mode: multiply !important;
-    z-index: 2;
-    pointer-events: auto !important;
-    user-select: text !important;
+/* Style for when highlighter tool is active */
+#viewerContainer.highlighting {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" style="font-size: 16px;"><text y="16">🖍️</text></svg>'), auto;
 }
-
-.highlight-annotation {
-    background-color: rgba(255, 255, 0, 0.5);
-    border-radius: 2px;
-}
-
-/* For Chrome, Safari, and Opera */
-.textLayer ::selection {
-    background: rgba(255, 235, 59, 0.4); /* Soft yellow with 40% opacity */
-    color: inherit; /* Maintain the original text color */
-}
-
-/* For Firefox */
-.textLayer ::-moz-selection {
-    background: rgba(255, 235, 59, 0.4); /* Soft yellow with 40% opacity */
-    color: inherit; /* Maintain the original text color */
-}
-
-/* Optional: Enhance .textLayer for better readability and interaction */
-.textLayer {
-    line-height: 1.5;
-    user-select: text; /* Ensure text is selectable */
-}
-
 
 /* Essential highlighting styles */
 .pdfViewer-highlight {
-    position: absolute !important;
-    background-color: rgba(255, 255, 0, 0.3) !important;
-    mix-blend-mode: multiply !important;
-    pointer-events: auto !important;
-    cursor: pointer !important;
-    z-index: 10 !important;
-    border-radius: 2px;
+    position: absolute;
+    pointer-events: auto;
+    cursor: pointer;
+    mix-blend-mode: multiply;
 }
 
 /* Style for index.html */
@@ -595,4 +596,46 @@
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
+}
+
+.page {
+    position: relative;
+    background-color: white;
+    overflow: hidden;
+    transform-origin: 0 0;
+}
+
+/* Add these styles for highlighting effects */
+.highlighting .textLayer ::selection {
+    background: rgba(255, 235, 59, 0.2) !important; /* Lighter yellow when highlighting */
+    border: 2px dashed #ffd700 !important;
+    border-radius: 2px;
+}
+
+.highlighting .textLayer ::-moz-selection {
+    background: rgba(255, 235, 59, 0.2) !important;
+    border: 2px dashed #ffd700 !important;
+    border-radius: 2px;
+}
+
+/* Update the highlight style */
+.pdfViewer-highlight {
+    position: absolute;
+    pointer-events: auto;
+    cursor: pointer;
+    mix-blend-mode: multiply;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    transform-origin: 0 0;
+}
+
+.pdfViewer-highlight:hover {
+    border-color: rgba(0, 0, 0, 0.2);
+    filter: brightness(1.1);
+}
+
+/* Style for when highlighter tool is active */
+#viewerContainer.highlighting {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" style="font-size: 16px;"><text y="16">🖍️</text></svg>'), auto;
 }

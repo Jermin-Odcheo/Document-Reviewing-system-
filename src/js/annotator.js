@@ -48,14 +48,32 @@ class PDFAnnotator {
     toggleHighlighting() {
         this.isHighlighting = !this.isHighlighting;
         const highlighterButton = document.getElementById('highlighterTool');
+        const viewerContainer = document.getElementById('viewerContainer');
         
         if (this.isHighlighting) {
             console.log('Highlighting mode enabled');
             highlighterButton.classList.add('active');
+            viewerContainer.classList.add('highlighting');
             document.addEventListener('mouseup', this.handleSelectionBound);
+            
+            // Add visual feedback when starting to select
+            document.addEventListener('mousedown', () => {
+                if (this.isHighlighting) {
+                    viewerContainer.style.cursor = 'crosshair';
+                }
+            });
+            
+            // Reset cursor after selection
+            document.addEventListener('mouseup', () => {
+                if (this.isHighlighting) {
+                    viewerContainer.style.cursor = 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" style="font-size: 16px;"><text y="16">🖍️</text></svg>\'), auto';
+                }
+            });
         } else {
             console.log('Highlighting mode disabled');
             highlighterButton.classList.remove('active');
+            viewerContainer.classList.remove('highlighting');
+            viewerContainer.style.cursor = 'auto';
             document.removeEventListener('mouseup', this.handleSelectionBound);
         }
     }
@@ -91,12 +109,21 @@ class PDFAnnotator {
 
         const viewport = pageView.viewport;
         const textLayerRect = textLayer.getBoundingClientRect();
+        const pageRect = page.getBoundingClientRect();
         const selectionRects = Array.from(range.getClientRects());
 
+        // Calculate scroll offset
+        const scrollLeft = this.viewerContainer.scrollLeft;
+        const scrollTop = this.viewerContainer.scrollTop;
+
         const highlights = selectionRects.map(rect => {
+            // Calculate position relative to the page
+            const left = (rect.left + scrollLeft - pageRect.left) / viewport.scale;
+            const top = (rect.top + scrollTop - pageRect.top) / viewport.scale;
+            
             return {
-                left: (rect.left - textLayerRect.left) / viewport.scale,
-                top: (rect.top - textLayerRect.top) / viewport.scale,
+                left: left,
+                top: top,
                 width: rect.width / viewport.scale,
                 height: rect.height / viewport.scale
             };
@@ -142,6 +169,8 @@ class PDFAnnotator {
             element.dataset.highlightId = highlight.id;
             element.style.position = 'absolute';
             element.style.backgroundColor = `${highlight.color}80`; // 50% opacity
+            
+            // Apply positions
             element.style.left = `${rect.left}px`;
             element.style.top = `${rect.top}px`;
             element.style.width = `${rect.width}px`;

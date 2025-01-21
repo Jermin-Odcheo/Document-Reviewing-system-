@@ -45,7 +45,7 @@
     </div>
 
     <!-- Load our scripts last -->
-    <script src="../../../../src/js/script.js"></script>
+    <script src="../../../../src/js/pdf.js"></script>
     <script src="../../../../src/js/annotator.js"></script>
 </body>
 <?php include '../general/footer.php';?>
