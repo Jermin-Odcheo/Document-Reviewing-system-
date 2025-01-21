@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `documents` (
   `review_status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`doc_id`),
   KEY `uploader_id` (`uploader_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 COMMIT;
 
 ALTER TABLE `documents` ADD FOREIGN KEY (`uploader_id`) REFERENCES `users`(`user_id`);
