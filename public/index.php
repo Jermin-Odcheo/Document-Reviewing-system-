@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>None atm</title>
+    <title>TMDD-Document Reviewer</title>
     <link rel="stylesheet" href="../public/assets/styles/index.css">
 </head>
 <body>
@@ -20,13 +20,13 @@
                 <button type="submit">Log In</button>
       <div class="signup-container">
               <h6>Don't have an account?</h6>
-              <a href="signup.php">Create an Account</a>
+              <a href="./assets/users_php/general/registration.php">Create an Account</a>
          </div>
             </form> 
         </div>
     </div>
+    <?php include "./assets/users_php/general/footer.php"?>
 </body>
-
 
 <script>
     window.onload = function() {
