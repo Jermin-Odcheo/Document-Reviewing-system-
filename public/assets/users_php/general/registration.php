@@ -1,6 +1,7 @@
 <?php
 $error_message = '';
 $password_class = '';
+$email_class = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include '../../../../config/db.php';
@@ -14,7 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $online_status = '1';
     $forgot_pass = '0';
 
-    if ($password === $confirm_password) {
+    // Check if email is already taken
+    $email_check_sql = "SELECT * FROM users WHERE email = '$email'";
+    $result = $db->query($email_check_sql);
+
+    if ($result->num_rows > 0) {
+        $error_message = "The email address is already taken.";
+        $email_class = 'is-invalid';  // Add error class to email field
+    } elseif ($password === $confirm_password) {
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
         $sql = "INSERT INTO users (first_name, last_name, email, password, account_type, online_status, forgot_pass) 
@@ -79,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">Email Address</h6>
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" name="email" required>
+                                        <input type="email" class="form-control <?php echo $email_class; ?>" id="email" name="email" required>
                                         <label for="email">Enter your email address</label>
                                     </div>
                                 </div>
