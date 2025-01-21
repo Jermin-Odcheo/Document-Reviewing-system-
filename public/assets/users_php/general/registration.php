@@ -118,15 +118,8 @@ PRIVACY NOTICE
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
     <script src="../../../../src\js/show_pwd.js"></script>
 
-=======
     <?php include "./footer.php"?>
->>>>>>> Stashed changes
-=======
-    <?php include "./footer.php"?>
->>>>>>> Stashed changes
 </body>
 </html>
