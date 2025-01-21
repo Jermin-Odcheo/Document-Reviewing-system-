@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../../styles/documents.css" rel="stylesheet">
     <link href="../../styles/index.css" rel="stylesheet">
+    <link rel="icon" type="png" href="../../img/SLU Logo.png">
 </head>
 <body>
     <div class="row">
