@@ -2,40 +2,76 @@
 $error_message = '';
 $password_class = '';
 $email_class = '';
+$fname_class = '';
+$lname_class = '';
+$form_valid = true; // Flag to check if form is valid
+$registration_success = false; // Flag to check if registration was successful
+
+// Retain the values after form submission
+$first_name = isset($_POST['first_name']) ? $_POST['first_name'] : '';
+$last_name = isset($_POST['last_name']) ? $_POST['last_name'] : '';
+$email = isset($_POST['email']) ? $_POST['email'] : '';
+$password = isset($_POST['password']) ? $_POST['password'] : '';
+$confirm_password = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
+$account_type = 'Uploader';
+$online_status = '1';
+$forgot_pass = '0';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include '../../../../config/db.php';
 
-    $first_name = $db->real_escape_string($_POST['first_name']);
-    $last_name = $db->real_escape_string($_POST['last_name']);
+    // Sanitize and process the inputs
+    $first_name = $db->real_escape_string(trim(preg_replace('/\s+/', ' ', $_POST['first_name'])));
+    $last_name = $db->real_escape_string(trim(preg_replace('/\s+/', ' ', $_POST['last_name'])));
     $email = $db->real_escape_string($_POST['email']);
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
-    $account_type = 'Uploader';
-    $online_status = '1';
-    $forgot_pass = '0';
 
-    // Check if email is already taken
+    // Check for valid first name and last name
+    if (!preg_match("/^[a-zA-ZÀ-ÿ\s'-.]+$/", $first_name)) {
+        $error_message = "First Name contains invalid characters.";
+        $fname_class = 'is-invalid';
+        $form_valid = false;
+    }
+    if (!preg_match("/^[a-zA-ZÀ-ÿ\s'-.]+$/", $last_name)) {
+        $error_message = "Last Name contains invalid characters.";
+        $lname_class = 'is-invalid';
+        $form_valid = false;
+    }
+
+    // Check if email already exists
     $email_check_sql = "SELECT * FROM users WHERE email = '$email'";
     $result = $db->query($email_check_sql);
 
     if ($result->num_rows > 0) {
         $error_message = "The email address is already taken.";
-        $email_class = 'is-invalid';  // Add error class to email field
+        $email_class = 'is-invalid';
+        $form_valid = false;
     } elseif ($password === $confirm_password) {
-        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-        $sql = "INSERT INTO users (first_name, last_name, email, password, account_type, online_status, forgot_pass) 
-                VALUES ('$first_name', '$last_name', '$email', '$hashed_password', '$account_type', '$online_status', '$forgot_pass')";
-
-        if ($db->query($sql) === TRUE) {
-            echo "New record created successfully";
+        // Check password length (8-16 characters)
+        if (strlen($password) < 8 || strlen($password) > 16) {
+            $error_message = "Password must be between 8 and 16 characters.";
+            $password_class = 'is-invalid';
+            $form_valid = false;
         } else {
-            echo "Error: " . $sql . "<br>" . $db->error;
+            // Hash password and insert into database if form is valid
+            if ($form_valid) {
+                $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+
+                $sql = "INSERT INTO users (first_name, last_name, email, password, account_type, online_status, forgot_pass) 
+                        VALUES ('$first_name', '$last_name', '$email', '$hashed_password', '$account_type', '$online_status', '$forgot_pass')";
+
+                if ($db->query($sql) === TRUE) {
+                    $registration_success = true;  // Set success flag after successful registration
+                } else {
+                    $error_message = "Error: " . $sql . "<br>" . $db->error;
+                }
+            }
         }
     } else {
         $error_message = "Passwords do not match.";
         $password_class = 'is-invalid';
+        $form_valid = false;
     }
 
     $db->close();
@@ -66,15 +102,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="card shadow extra-large-card custom-card-size">
                     <div class="card-body">
                         <form action="" method="post" enctype="multipart/form-data">
-                        <div class="row g-4">
-                            <div class="col-md-6">
-                                <h1 class="text-start mb-4">Create Account</h1>
-                                <p class="text-start text-muted mb-4">Create a new account</p>
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <h1 class="text-start mb-4">Create Account</h1>
+                                    <p class="text-start text-muted mb-4">Create a new account</p>
+                                </div>
+                                <div class="col-md-6 text-end">
+                                    <img src="../../img/SLU Logo.png" style="height: 50px;">
+                                </div>
                             </div>
-                            <div class="col-md-6 text-end">
-                                <img src="../../img/SLU Logo.png" style="height: 50px;">
-                            </div>
-                        </div> 
 
                             <!-- Display Error message -->
                             <?php if (!empty($error_message)): ?>
@@ -85,21 +121,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">First Name</h6>
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="first_name" name="first_name" required>
+                                        <input type="text" class="form-control <?php echo $fname_class; ?>" id="first_name" name="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>
                                         <label for="first_name">Enter your first name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">Last Name</h6>
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="last_name" name="last_name" required>
+                                        <input type="text" class="form-control <?php echo $lname_class; ?>" id="last_name" name="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
                                         <label for="last_name">Enter your last name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">Email Address</h6>
                                     <div class="form-floating">
-                                        <input type="email" class="form-control <?php echo $email_class; ?>" id="email" name="email" required>
+                                        <input type="email" class="form-control <?php echo $email_class; ?>" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
                                         <label for="email">Enter your email address</label>
                                     </div>
                                 </div>
@@ -112,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">Password</h6>
                                     <div class="form-floating">
-                                        <input type="password" class="form-control <?php echo $password_class; ?>" id="password" name="password" required>
+                                        <input type="password" class="form-control <?php echo $password_class; ?>" id="password" name="password" value="<?php echo htmlspecialchars($password); ?>" required>
                                         <label for="password">Create your password</label>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="showPwd1">
@@ -123,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">Confirm Password</h6>
                                     <div class="form-floating">
-                                        <input type="password" class="form-control <?php echo $password_class; ?>" id="confirm_password" name="confirm_password" required>
+                                        <input type="password" class="form-control <?php echo $password_class; ?>" id="confirm_password" name="confirm_password" value="<?php echo htmlspecialchars($confirm_password); ?>" required>
                                         <label for="confirm_password">Repeat your password</label>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="showPwd2">
@@ -133,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
                             </div>
 
-                            <!--Agree to all terms-->
+                            <!-- Agree to terms -->
                             <div class="form-check mt-4">
                                 <input class="form-check-input" type="checkbox" id="terms" required>
                                 <label class="form-check-label" for="terms">
@@ -141,12 +177,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </label>
                             </div>
 
-                            <!--Submit Button-->
+                            <!-- Submit Button -->
                             <div class="text-center mt-4">
                                 <button type="submit" class="btn btn-primary w-100 py-2">Sign Up</button>
                             </div>
 
-                            <!--Go Back-->
+                            <!-- Go Back -->
                             <div class="text-center mt-3">
                                 <p>Changed your mind? <a href="../../../index.php" class="link-secondary">Go Back</a></p>
                             </div>
@@ -157,22 +193,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header justify-content-between">
-                    <h5 class="modal-title" id="myModalLabel"> Terms and Privacy Policy</h5>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Registration Successful</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>
-Website Privacy Policy Template [Text Format]
-PRIVACY NOTICE
-</p>
+                    <p>Your account has been created successfully!</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="okButton">OK</button>
                 </div>
             </div>
         </div>
@@ -183,6 +216,21 @@ PRIVACY NOTICE
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../../../src\js/show_pwd.js"></script>
+    <script src="../../../../src/js/show_pwd.js"></script>
+    <script src="../../../../src/js/registration.js"></script>
+    <script>
+        // Show success modal if registration was successful
+        <?php if ($registration_success): ?>
+            document.addEventListener('DOMContentLoaded', function() {
+                var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+            });
+        <?php endif; ?>
+
+        // Redirect to index.php when OK button is clicked
+        document.getElementById('okButton').addEventListener('click', function() {
+            window.location.href = '../../../index.php';
+        });
+    </script>
 </body>
 </html>
