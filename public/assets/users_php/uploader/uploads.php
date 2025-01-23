@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Upload Modal Actions</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <style>
         .upload-box {
             border: 2px dashed #ccc;
@@ -15,42 +16,51 @@
             background-color: #f8f9fa;
             transition: border-color 0.3s ease;
         }
+
         .upload-box.dragover {
             border-color: #4a69bd;
             background-color: #f1f4fb;
         }
+
         .upload-box i {
             font-size: 50px;
             color: #4a69bd;
         }
+
         .file-info {
             background: #fff;
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         .progress {
             height: 10px;
             margin-top: 10px;
         }
+
         .upload-actions {
             margin-top: 5px;
         }
+
         .upload-actions button {
             padding: 2px 8px;
             font-size: 0.8rem;
         }
+
         .file-format-icon {
             font-size: 1.5rem;
             margin-right: 10px;
         }
+
         .upload-status {
             font-size: 0.85rem;
             color: #666;
         }
     </style>
 </head>
+
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -58,7 +68,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title mb-4">Upload Documents</h3>
-                        
+
                         <!-- Dropzone -->
                         <div class="upload-box" id="dropZone">
                             <i class="fas fa-cloud-upload-alt mb-3"></i>
@@ -77,7 +87,7 @@
                             <div id="fileList">
                                 <!-- Files will be listed here -->
                             </div>
-                            
+
                             <!-- Global Upload Actions -->
                             <div class="d-flex justify-content-end mt-3" id="globalActions" style="display: none;">
                                 <button class="btn btn-secondary me-2" onclick="clearFiles()">
@@ -192,10 +202,10 @@
             const template = document.getElementById('fileItemTemplate');
             const fileItem = template.content.cloneNode(true);
             const container = fileItem.querySelector('.file-info');
-            
+
             container.id = fileId;
             container.querySelector('.filename').textContent = file.name;
-            container.querySelector('.file-details').textContent = 
+            container.querySelector('.file-details').textContent =
                 `PDF Document • ${formatFileSize(file.size)}`;
 
             // Setup action buttons
@@ -249,14 +259,29 @@
             });
 
             xhr.onload = function() {
-                if (xhr.status === 200) {
-                    progressBar.classList.add('bg-success');
-                    statusDiv.textContent = 'Upload Complete!';
-                } else {
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    if (xhr.status === 200) {
+                        const fileResponse = response.find(item => item.file === fileData.file.name);
+                        if (fileResponse && fileResponse.status === 'success') {
+                            progressBar.classList.add('bg-success');
+                            statusDiv.textContent = 'Upload Complete and Saved!';
+                        } else {
+                            progressBar.classList.add('bg-danger');
+                            statusDiv.textContent = fileResponse.message || 'Upload Failed';
+                        }
+                    } else {
+                        progressBar.classList.add('bg-danger');
+                        statusDiv.textContent = 'Upload Failed';
+                    }
+                } catch (e) {
                     progressBar.classList.add('bg-danger');
-                    statusDiv.textContent = 'Upload Failed';
+                    statusDiv.textContent = 'Unexpected server response';
+                    console.error('Response parsing error:', e, xhr.responseText);
                 }
             };
+
+
 
             xhr.onerror = function() {
                 progressBar.classList.add('bg-danger');
@@ -287,7 +312,7 @@
         function resetUpload(fileId) {
             const xhr = activeUploads.get(fileId);
             if (xhr) xhr.abort();
-            
+
             const container = document.getElementById(fileId);
             const progressBar = container.querySelector('.progress-bar');
             const statusDiv = container.querySelector('.upload-status');
@@ -305,7 +330,7 @@
         function removeFile(fileId) {
             const xhr = activeUploads.get(fileId);
             if (xhr) xhr.abort();
-            
+
             document.getElementById(fileId).remove();
             uploadQueue.delete(fileId);
             activeUploads.delete(fileId);
@@ -321,4 +346,5 @@
         }
     </script>
 </body>
+
 </html>
