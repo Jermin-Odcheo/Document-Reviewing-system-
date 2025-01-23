@@ -15,34 +15,45 @@ body {
 }
 .template-gallery {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
 }
-.template-gallery img {
+
+.template-gallery .d-flex {
+    gap: 20px; /* Add space between items */
+}
+
+.template-item {
+    width: 150px; /* Set equal width for all items */
+    max-width: 150px; /* Prevent items from stretching */
+}
+
+.document-template {
     width: 100%;
-    height: auto;
+    height: 200px; /* Set fixed height */
+    object-fit: cover; /* Ensure images fit within the container */
+    border: 1px solid #ddd; /* Optional border for consistency */
+    border-radius: 5px; /* Optional rounded corners */
 }
-.recent-documents img {
-    width: 100%;
-    height: auto;
+
+.position-relative {
+    position: relative;
+    display: block;
 }
-.recent-documents .card {
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
+
+.file-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px; /* Adjust icon size */
+    height: 40px;
+    opacity: 0.8; /* Optional transparency */
+    pointer-events: none;
 }
-.recent-documents .card-body {
-    padding: 10px;
-}
-.recent-documents .card-title {
+
+p {
+    margin-top: 8px; /* Add space between the image and text */
     font-size: 14px;
     font-weight: bold;
-}
-.recent-documents .card-text {
-    font-size: 12px;
-    color: #5f6368;
-}
-.recent-documents .card-footer {
-    background-color: #ffffff;
-    border-top: 1px solid #e0e0e0;
-    padding: 5px 10px;
 }
