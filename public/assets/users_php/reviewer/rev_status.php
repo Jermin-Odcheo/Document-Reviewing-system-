@@ -69,7 +69,8 @@ $result = $conn->query($sql);
    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet" />
    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
    <link href="../../styles/admin.css" rel="stylesheet">
-   <link rel="stylesheet" href="public/assets/styles/status.css">
+   <link rel="stylesheet" href="../../styles/status.css">
+
    <link rel="icon" type="png" href="../../img/SLU Logo.png">
 </head>
 
