@@ -23,11 +23,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['files'])) {
         // Move uploaded file
         if (move_uploaded_file($fileTmpPath, $uploadPath)) {
             $uploaderId = 1; // Example uploader ID
-            $reviewStatus = 'pending';
+            $reviewStatus = 'pending'; // Default review status
+            $dateUploaded = date('Y-m-d H:i:s'); // Current timestamp
+            $dateApproved = null; // Default to null for now
 
-            $stmt = $db->prepare("INSERT INTO documents (uploader_id, file_path, review_status) VALUES (?, ?, ?)");
+            $stmt = $db->prepare("INSERT INTO documents (uploader_id, file_path, date_uploaded, date_approved, review_status) VALUES (?, ?, ?, ?, ?)");
             if ($stmt) {
-                $stmt->bind_param("iss", $uploaderId, $uploadPath, $reviewStatus);
+                $stmt->bind_param("issss", $uploaderId, $uploadPath, $dateUploaded, $dateApproved, $reviewStatus);
                 if ($stmt->execute()) {
                     $response[] = [
                         'file' => $fileName,
@@ -56,8 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['files'])) {
                 'message' => 'Failed to upload file'
             ];
         }
-    }
 
+    }
     echo json_encode($response);
 } else {
     http_response_code(400);
