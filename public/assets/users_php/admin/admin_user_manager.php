@@ -10,10 +10,9 @@
 </head>
  <bod>
  <header>
-    <?php include "../general/header.php";?>
+ <?php include "./admin_header.php";?>
     </header>
     <div class="d-flex">
-        <?php include "./admin_sidebar.php"; ?>
       <div class="content flex-grow-1">
     <h2>
      User Accounts 
@@ -74,45 +73,166 @@
 
       <tbody>
        <tr>
-        <td>
-         admin
-        </td>
-        <td>
-         ad
-        </td>
-        <td>
-         min
-        </td>
-        <td>
-         admin@gmail.com
-        </td>
-        <td>
-         Admin
-        </td>
-        <td>
-         ********
-        </td>
+        <td>admin</td>
+        <td>ad</td>
+        <td>min</td>
+        <td>admin@gmail.com</td>
+        <td>Admin</td>
+        <td>********</td>
         <td>
          <img alt="Avatar" class="rounded-circle" height="30" src="https://storage.googleapis.com/a1aa/image/vVdqGIeqK40mCKmtiPme1idBr1FVRjeWXA48LzNRZ6L7SpPoA.jpg" width="30"/>
          Avatar
         </td>
         <td>
-         <button class="btn btn-primary btn-sm">
-          Edit
-         </button>
-         <button class="btn btn-danger btn-sm">
-          Delete
-         </button>
+         <button class="btn btn-primary btn-sm">Edit</button>
+         <button class="btn btn-danger btn-sm">Delete</button>
         </td>
        </tr>
-        <button class="btn btn-primary">
-      + Add User
-     </button>
+      </tbody>
+      <tbody>
+       <tr>
+        <td>admin</td>
+        <td>ad</td>
+        <td>min</td>
+        <td>admin@gmail.com</td>
+        <td>Admin</td>
+        <td>********</td>
+        <td>
+         <img alt="Avatar" class="rounded-circle" height="30" src="https://storage.googleapis.com/a1aa/image/vVdqGIeqK40mCKmtiPme1idBr1FVRjeWXA48LzNRZ6L7SpPoA.jpg" width="30"/>
+         Avatar
+        </td>
+        <td>
+         <button class="btn btn-primary btn-sm">Edit</button>
+         <button class="btn btn-danger btn-sm">Delete</button>
+        </td>
+       </tr>
+      </tbody><tbody>
+       <tr>
+        <td>admin</td>
+        <td>ad</td>
+        <td>min</td>
+        <td>admin@gmail.com</td>
+        <td>Admin</td>
+        <td>********</td>
+        <td>
+         <img alt="Avatar" class="rounded-circle" height="30" src="https://storage.googleapis.com/a1aa/image/vVdqGIeqK40mCKmtiPme1idBr1FVRjeWXA48LzNRZ6L7SpPoA.jpg" width="30"/>
+         Avatar
+        </td>
+        <td>
+         <button class="btn btn-primary btn-sm">Edit</button>
+         <button class="btn btn-danger btn-sm">Delete</button>
+        </td>
+       </tr>
+      </tbody><tbody>
+       <tr>
+        <td>admin</td>
+        <td>ad</td>
+        <td>min</td>
+        <td>admin@gmail.com</td>
+        <td>Admin</td>
+        <td>********</td>
+        <td>
+         <img alt="Avatar" class="rounded-circle" height="30" src="https://storage.googleapis.com/a1aa/image/vVdqGIeqK40mCKmtiPme1idBr1FVRjeWXA48LzNRZ6L7SpPoA.jpg" width="30"/>
+         Avatar
+        </td>
+        <td>
+         <button class="btn btn-primary btn-sm">Edit</button>
+         <button class="btn btn-danger btn-sm">Delete</button>
+        </td>
+       </tr>
+      </tbody><tbody>
+       <tr>
+        <td>admin</td>
+        <td>ad</td>
+        <td>min</td>
+        <td>admin@gmail.com</td>
+        <td>Admin</td>
+        <td>********</td>
+        <td>
+         <img alt="Avatar" class="rounded-circle" height="30" src="https://storage.googleapis.com/a1aa/image/vVdqGIeqK40mCKmtiPme1idBr1FVRjeWXA48LzNRZ6L7SpPoA.jpg" width="30"/>
+         Avatar
+        </td>
+        <td>
+         <button class="btn btn-primary btn-sm">Edit</button>
+         <button class="btn btn-danger btn-sm">Delete</button>
+        </td>
+       </tr>
+      </tbody><tbody>
+       <tr>
+        <td>admin</td>
+        <td>ad</td>
+        <td>min</td>
+        <td>admin@gmail.com</td>
+        <td>Admin</td>
+        <td>********</td>
+        <td>
+         <img alt="Avatar" class="rounded-circle" height="30" src="https://storage.googleapis.com/a1aa/image/vVdqGIeqK40mCKmtiPme1idBr1FVRjeWXA48LzNRZ6L7SpPoA.jpg" width="30"/>
+         Avatar
+        </td>
+        <td>
+         <button class="btn btn-primary btn-sm">Edit</button>
+         <button class="btn btn-danger btn-sm">Delete</button>
+        </td>
+       </tr>
+      </tbody><tbody>
+       <tr>
+        <td>admin</td>
+        <td>ad</td>
+        <td>min</td>
+        <td>admin@gmail.com</td>
+        <td>Admin</td>
+        <td>********</td>
+        <td>
+         <img alt="Avatar" class="rounded-circle" height="30" src="https://storage.googleapis.com/a1aa/image/vVdqGIeqK40mCKmtiPme1idBr1FVRjeWXA48LzNRZ6L7SpPoA.jpg" width="30"/>
+         Avatar
+        </td>
+        <td>
+         <button class="btn btn-primary btn-sm">Edit</button>
+         <button class="btn btn-danger btn-sm">Delete</button>
+        </td>
+       </tr>
+      </tbody><tbody>
+       <tr>
+        <td>admin</td>
+        <td>ad</td>
+        <td>min</td>
+        <td>admin@gmail.com</td>
+        <td>Admin</td>
+        <td>********</td>
+        <td>
+         <img alt="Avatar" class="rounded-circle" height="30" src="https://storage.googleapis.com/a1aa/image/vVdqGIeqK40mCKmtiPme1idBr1FVRjeWXA48LzNRZ6L7SpPoA.jpg" width="30"/>
+         Avatar
+        </td>
+        <td>
+         <button class="btn btn-primary btn-sm">Edit</button>
+         <button class="btn btn-danger btn-sm">Delete</button>
+        </td>
+       </tr>
+      </tbody><tbody>
+       <tr>
+        <td>admin</td>
+        <td>ad</td>
+        <td>min</td>
+        <td>admin@gmail.com</td>
+        <td>Admin</td>
+        <td>********</td>
+        <td>
+         <img alt="Avatar" class="rounded-circle" height="30" src="https://storage.googleapis.com/a1aa/image/vVdqGIeqK40mCKmtiPme1idBr1FVRjeWXA48LzNRZ6L7SpPoA.jpg" width="30"/>
+         Avatar
+        </td>
+        <td>
+         <button class="btn btn-primary btn-sm">Edit</button>
+         <button class="btn btn-danger btn-sm">Delete</button>
+        </td>
+       </tr>
+      </tbody>
+     </table>
+     <button class="btn btn-primary mt-3">+ Add User</button>
     </div>
    </div>
   </div>
-  <footer>
-  <?php include "../general/footer.php";?>
+  <footer class="bottom">
+    <?php include "../general/footer.php";?>
   </footer>
  </body>
 </html>

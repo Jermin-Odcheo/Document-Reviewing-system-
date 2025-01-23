@@ -61,14 +61,14 @@
         </div>
     </header>
 
-    <!-- Admin Sidebar -->
+    <!-- Reviewer Sidebar -->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="adminSidebar" aria-labelledby="adminSidebarLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="adminSidebarLabel">Menu</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <?php include '/rev_sidebar.php'; ?>
+            <?php include './rev_sidebar.php'; ?>
         </div>
     </div>
 </body>
