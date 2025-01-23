@@ -1,10 +1,5 @@
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<?php include '../general/header.php'; ?>
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+<?php include 'rev_header.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,13 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Reviewer Landing</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
     <link href="../../styles/documents.css" rel="stylesheet">
     <!-- <link href="../../styles/index.css" rel="stylesheet"> -->
-=======
-    <link href="../../styles/document.css" rel="stylesheet">
->>>>>>> Stashed changes
     <link rel="icon" type="png" href="../../img/SLU Logo.png">
 </head>
 
@@ -119,17 +109,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../../../src/js/show_pwd.js"></script>
 
-=======
-=======
->>>>>>> Stashed changes
     </div>
     <footer>
     <?php include "../general/footer.php";?>
     </footer>
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 </body>
 
 </html>
