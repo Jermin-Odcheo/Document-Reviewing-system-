@@ -118,18 +118,7 @@ ALTER TABLE `review_logs`
   ADD CONSTRAINT `reviewer_id` FOREIGN KEY (`reviewer_id`) REFERENCES `users` (`user_id`);
 COMMIT;
 
-<<<<<<< Updated upstream
-ALTER TABLE `documents` ADD FOREIGN KEY (`uploader_id`) REFERENCES `users`(`user_id`);
 
-INSERT INTO `users` (`email`, `password`, `first_name`, `last_name`, `account_type`, `online_status`, `forgot_pass`)
-VALUES ('user@example.com', 'password123', 'John', 'Doe', 'uploader', 0, 0);
-
-INSERT INTO `documents` (`uploader_id`, `file_path`, `review_status`)
-VALUES (1, 'pdf/Sample1.pdf', 0);
-
-
-=======
->>>>>>> Stashed changes
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
