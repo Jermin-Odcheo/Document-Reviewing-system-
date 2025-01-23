@@ -7,6 +7,9 @@
 -- Server version: 8.4.3
 -- PHP Version: 7.4.26
 
+CREATE DATABASE IF NOT EXISTS `document_reviewing_system`;
+USE `document_reviewing_system`;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -31,7 +34,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(250) NOT NULL,
-  `password` varchar(250) NOT NULL,
+  `password` varchar(25) NOT NULL,
   `first_name` varchar(250) NOT NULL,
   `last_name` varchar(250) NOT NULL,
   `account_type` set('reviewer','uploader','admin') NOT NULL,
@@ -58,6 +61,12 @@ CREATE TABLE IF NOT EXISTS `documents` (
 COMMIT;
 
 ALTER TABLE `documents` ADD FOREIGN KEY (`uploader_id`) REFERENCES `users`(`user_id`);
+
+INSERT INTO `users` (`email`, `password`, `first_name`, `last_name`, `account_type`, `online_status`, `forgot_pass`)
+VALUES ('user@example.com', 'password123', 'John', 'Doe', 'uploader', 0, 0);
+
+INSERT INTO `documents` (`uploader_id`, `file_path`, `review_status`)
+VALUES (1, 'pdf/Sample1.pdf', 0);
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
