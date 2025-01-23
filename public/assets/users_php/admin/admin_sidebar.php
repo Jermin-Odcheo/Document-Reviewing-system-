@@ -1,14 +1,12 @@
 <div class="sidebar">
-    <a href="#">
-     REVIEWER
-    </a>
-    <a href="#">
+    <a>Hello $user</a>
+    <a href="./admin_dashboard.php">
      Dashboard
     </a>
-    <a href="#">
-     Documents
+    <a href="./admin_logs.php">
+     Logs
     </a>
-    <a href="#">
-     Reviews and Status
+    <a href="./admin_user_manager.php"s>
+     User Accounts
     </a>
    </div>
