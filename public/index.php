@@ -1,3 +1,49 @@
+<?php
+session_start();
+include('../config/db.php');
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $login_query = "SELECT user_id, email, password, account_type, online_status FROM users WHERE email = ?";
+    if ($stmt = $db->prepare($login_query)) {
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($user_id, $db_email, $db_password, $account_type, $online_status);
+
+        if ($stmt->num_rows > 0) {
+            $stmt->fetch();
+            
+            if (password_verify($password, $db_password)) {
+                $_SESSION['user_id'] = $user_id;
+                $_SESSION['email'] = $db_email;
+                $_SESSION['account_type'] = $account_type;
+                $_SESSION['online_status'] = $online_status;
+
+                if ($account_type == 'Reviewer') {
+                    header("Location: assets/users_php/reviewer/rev_dashboard.php");
+                } elseif ($account_type == 'Uploader') {
+                    header("Location: assets/users_php/uploader/upld_dashboard.php");
+                } elseif ($account_type == 'Admin') {
+                    header("Location: assets/users_php/admin/admin_dashboard.php");
+                } 
+                exit;
+            } else {
+                $error_message = "Access Denied: Incorrect password.";
+            }
+        } else {
+            $error_message = "Access Denied: Account not found";
+        }
+        $stmt->close();
+    } else {
+        $error_message = "Database query failed.";
+    }
+    $db->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,11 +62,15 @@
             <img src="../public/assets/img/SLU Logo.png" alt="Logo">
         </div>
         <div class="right-section">
-            <form class="login-form" action="../db/log-in.php" method="POST">
+            <form class="login-form" action="index.php" method="POST">
                 <h2 class="welcome-message">Welcome Back!</h2>
-                
+
+                <?php if (!empty($error_message)): ?>
+                    <div class="alert alert-danger"><?php echo $error_message; ?></div>
+                <?php endif; ?>
+
                 <div class="form-group">
-                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="email" name="email" placeholder="Email" value="<?php echo htmlspecialchars($email ?? '', ENT_QUOTES); ?>" required>
                 </div>
 
                 <div class="form-group password-group">

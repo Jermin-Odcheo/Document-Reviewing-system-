@@ -4,30 +4,27 @@ $password_class = '';
 $email_class = '';
 $fname_class = '';
 $lname_class = '';
-$form_valid = true; // Flag to check if form is valid
-$registration_success = false; // Flag to check if registration was successful
+$form_valid = true;
+$registration_success = false;
 
-// Retain the values after form submission
 $first_name = isset($_POST['first_name']) ? $_POST['first_name'] : '';
 $last_name = isset($_POST['last_name']) ? $_POST['last_name'] : '';
 $email = isset($_POST['email']) ? $_POST['email'] : '';
 $password = isset($_POST['password']) ? $_POST['password'] : '';
 $confirm_password = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
 $account_type = 'Uploader';
-$online_status = '1';
+$online_status = '0';
 $forgot_pass = '0';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include '../../../../config/db.php';
 
-    // Sanitize and process the inputs
     $first_name = $db->real_escape_string(trim(preg_replace('/\s+/', ' ', $_POST['first_name'])));
     $last_name = $db->real_escape_string(trim(preg_replace('/\s+/', ' ', $_POST['last_name'])));
     $email = $db->real_escape_string($_POST['email']);
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
 
-    // Check for valid first name and last name
     if (!preg_match("/^[a-zA-ZÀ-ÿ\s'-.]+$/", $first_name)) {
         $error_message = "First Name contains invalid characters.";
         $fname_class = 'is-invalid';
@@ -39,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $form_valid = false;
     }
 
-    // Check if email already exists
     $email_check_sql = "SELECT * FROM users WHERE email = '$email'";
     $result = $db->query($email_check_sql);
 
@@ -48,13 +44,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $email_class = 'is-invalid';
         $form_valid = false;
     } elseif ($password === $confirm_password) {
-        // Check password length (8-16 characters)
         if (strlen($password) < 8 || strlen($password) > 16) {
             $error_message = "Password must be between 8 and 16 characters.";
             $password_class = 'is-invalid';
             $form_valid = false;
         } else {
-            // Hash password and insert into database if form is valid
             if ($form_valid) {
                 $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
@@ -62,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         VALUES ('$first_name', '$last_name', '$email', '$hashed_password', '$account_type', '$online_status', '$forgot_pass')";
 
                 if ($db->query($sql) === TRUE) {
-                    $registration_success = true;  // Set success flag after successful registration
+                    $registration_success = true;
                 } else {
                     $error_message = "Error: " . $sql . "<br>" . $db->error;
                 }
@@ -73,7 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $password_class = 'is-invalid';
         $form_valid = false;
     }
-
     $db->close();
 }
 ?>
@@ -90,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="icon" type="png" href="../../img/SLU Logo.png">
     <style>
         .container {
-            padding-bottom: 60px; /* Adjust this value based on your footer height */
+            padding-bottom: 60px;
         }
     </style>
 </head>
@@ -112,7 +105,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
                             </div>
 
-                            <!-- Display Error message -->
                             <?php if (!empty($error_message)): ?>
                                 <div class="alert alert-danger"><?php echo $error_message; ?></div>
                             <?php endif; ?>
@@ -141,7 +133,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
                             </div>
 
-                            <!-- Adding space between email and password -->
                             <div class="mb-4"></div>
 
                             <div class="row g-4 align-items-center">
@@ -169,7 +160,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
                             </div>
 
-                            <!-- Agree to terms -->
                             <div class="form-check mt-4">
                                 <input class="form-check-input" type="checkbox" id="terms" required>
                                 <label class="form-check-label" for="terms">
@@ -177,12 +167,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </label>
                             </div>
 
-                            <!-- Submit Button -->
                             <div class="text-center mt-4">
                                 <button type="submit" class="btn btn-primary w-100 py-2">Sign Up</button>
                             </div>
 
-                            <!-- Go Back -->
                             <div class="text-center mt-3">
                                 <p>Changed your mind? <a href="../../../index.php" class="link-secondary">Go Back</a></p>
                             </div>
@@ -193,7 +181,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 
-    <!-- Success Modal -->
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -218,7 +205,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="../../../../src/js/show_pwd.js"></script>
     <script src="../../../../src/js/registration.js"></script>
     <script>
-        // Show success modal if registration was successful
         <?php if ($registration_success): ?>
             document.addEventListener('DOMContentLoaded', function() {
                 var successModal = new bootstrap.Modal(document.getElementById('successModal'));
@@ -226,7 +212,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             });
         <?php endif; ?>
 
-        // Redirect to index.php when OK button is clicked
         document.getElementById('okButton').addEventListener('click', function() {
             window.location.href = '../../../index.php';
         });
