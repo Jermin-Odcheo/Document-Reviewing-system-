@@ -10,7 +10,7 @@
 </head>
  <body>
  <header>
-    <?php include "../general/user_header.php";?>
+    <?php include "../general/header.php";?>
     </header>
     <div class="d-flex">
         <?php include "./admin_sidebar.php"; ?>
