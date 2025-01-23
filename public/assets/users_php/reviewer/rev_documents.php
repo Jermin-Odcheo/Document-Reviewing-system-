@@ -1,4 +1,7 @@
+<<<<<<< Updated upstream
 <?php include '../general/user_header.php'; ?>
+=======
+>>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,12 +10,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Reviewer Landing</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<<<<<<< Updated upstream
     <link href="../../styles/documents.css" rel="stylesheet">
     <!-- <link href="../../styles/index.css" rel="stylesheet"> -->
+=======
+    <link href="../../styles/document.css" rel="stylesheet">
+>>>>>>> Stashed changes
     <link rel="icon" type="png" href="../../img/SLU Logo.png">
 </head>
 
 <body>
+<<<<<<< Updated upstream
    <div class="recent-documents">
     <h2>Recent Documents</h2>
     <div class="documents">
@@ -31,6 +39,28 @@
         <div class="document unreviewed">
             <img src="https://via.placeholder.com/150x200" alt="Document 4">
             <p>Document 4</p>
+=======
+<?php include "../general/header.php";?>
+    </header>
+    <div class="sidebar">
+        <?php include "./rev_sidebar.php"; ?>
+        </div>
+    <div class="template-gallery">
+        <h1>Start a new document</h1>
+        <div class="templates">
+            <div class="template">
+                <img src="https://via.placeholder.com/150x200" alt="Blank Document">
+                <p>Blank Document</p>
+            </div>
+            <div class="template">
+                <img src="https://via.placeholder.com/150x200" alt="Report">
+                <p>Report</p>
+            </div>
+            <div class="template">
+                <img src="https://via.placeholder.com/150x200" alt="Essay">
+                <p>Essay</p>
+            </div>
+>>>>>>> Stashed changes
         </div>
     </div>
 </div>
@@ -55,6 +85,7 @@
             <p>Document 8</p>
         </div>
     </div>
+<<<<<<< Updated upstream
 </div>
 
 <div class="reviewed-documents">
@@ -108,6 +139,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../../../src/js/show_pwd.js"></script>
 
+=======
+    </div>
+    <footer>
+    <?php include "../general/footer.php";?>
+    </footer>
+>>>>>>> Stashed changes
 </body>
 
 </html>

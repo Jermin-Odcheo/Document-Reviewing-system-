@@ -8,12 +8,10 @@
   <link href="../../styles/admin.css" rel="stylesheet">
   <link rel="icon" type="png" href="../../img/SLU Logo.png"> 
 </head>
- <body>
  <header>
-    <?php include "../general/header.php";?>
+    <?php include "./admin_header.php";?>
     </header>
     <div class="d-flex">
-        <?php include "./admin_sidebar.php"; ?>
       <div class="content flex-grow-1">
     <h2>
      Logs Manager
@@ -111,5 +109,8 @@
     </div>
    </div>
   </div>
+<footer>
+<?php include "../general/footer.php";?>
+</footer>
  </body>
 </html>
