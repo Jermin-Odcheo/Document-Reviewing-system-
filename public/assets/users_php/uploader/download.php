@@ -1,7 +1,7 @@
 <?php
 // download.php
 $file = $_GET['file'];
-$filePath = __DIR__ . '../../reviewer/pdf/' . basename($file);
+$filePath = __DIR__ . '../../../../src\js/documents/' . basename($file);
 
 if (file_exists($filePath)) {
     header('Content-Type: application/pdf');

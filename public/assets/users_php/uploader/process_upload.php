@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['files'])) {
     foreach ($_FILES['files']['tmp_name'] as $index => $tmpName) {
         $fileName = $_FILES['files']['name'][$index];
         $fileTmpPath = $_FILES['files']['tmp_name'][$index];
-        $uploadDir = '../reviewer/pdf/';
+        $uploadDir = '../../../../src\js/documents/';
         $uploadPath = $uploadDir . basename($fileName);
 
         // Ensure uploads directory exists
