@@ -91,7 +91,7 @@ body::before{
 .signup-container {
     display: flex;
     align-items: center;
-    margin-top: -1vh;
+    margin-top: 1vh;
 }
 
 .signup-container h6 {

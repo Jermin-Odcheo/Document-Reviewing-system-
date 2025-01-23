@@ -1,0 +1,17 @@
+        .sidebar {
+            background-color: linear-gradient(180, #3b5998, #0f1d3b);
+            height: 100vh;
+            padding-top: 20px;
+            padding: 20px;
+            height: 100vh;
+            box-shadow: 2px 0 5px rgba(99, 32, 32, 0.1);
+        }
+        .sidebar a {
+            color: white;
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #3b5998;
+        }

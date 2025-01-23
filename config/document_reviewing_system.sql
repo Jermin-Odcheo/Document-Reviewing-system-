@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(250) NOT NULL,
-  `password` varchar(25) NOT NULL,
+  `password` varchar(250) NOT NULL,
   `first_name` varchar(250) NOT NULL,
   `last_name` varchar(250) NOT NULL,
   `account_type` set('reviewer','uploader','admin') NOT NULL,

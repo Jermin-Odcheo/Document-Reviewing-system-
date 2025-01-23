@@ -1,0 +1,18 @@
+.header img {
+    height: 40px;
+}
+.header .search-bar {
+    display: flex;
+    align-items: center;
+}
+.header .search-bar input {
+    border-radius: 20px;
+    border: none;
+    padding: 5px 10px;
+}
+.header .search-bar i {
+    margin-left: 10px;
+}
+.header .profile-icon {
+    font-size: 1.5rem;
+}
