@@ -178,10 +178,9 @@ PRIVACY NOTICE
         </div>
     </div>
 
-    <footer class="fixed-bottom">
+    <footer class="bottom">
         <?php include "./footer.php"?>
     </footer>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../../../src\js/show_pwd.js"></script>
 </body>

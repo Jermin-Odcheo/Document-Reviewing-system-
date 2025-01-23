@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TMDD-Document Reviewer</title>
-    <link rel="stylesheet" href="../public/assets/styles/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/styles/index.css">
+    <link rel="icon" type="png" href="./assets/img/SLU Logo.png">
 </head>
 <body>
     <div class="container">
@@ -25,7 +28,9 @@
             </form> 
         </div>
     </div>
-    <?php include "./assets/users_php/general/footer.php"?>
+    <footer>
+    <p class="mb-0">&copy; 2025 TMDD Interns | Alagad ni SLU </p>
+    </footer>
 </body>
 
 <script>
