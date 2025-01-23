@@ -1,0 +1,77 @@
+body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #f8f9fa, #e0f7fa);
+        }
+        .sidebar {
+            background-color: linear-gradient(180, #3b5998, #0f1d3b);
+            height: 100vh;
+            padding-top: 20px;
+            padding: 20px;
+            height: 100vh;
+            box-shadow: 2px 0 5px rgba(99, 32, 32, 0.1);
+        }
+        .sidebar a {
+            color: white;
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #3b5998;
+        }
+        .header {
+            background-color: #4a69bd;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header img {
+            height: 40px;
+        }
+        .header .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        .header .search-bar input {
+            border-radius: 20px;
+            border: none;
+            padding: 5px 10px;
+        }
+        .header .search-bar i {
+            margin-left: 10px;
+        }
+        .header .profile-icon {
+            font-size: 1.5rem;
+        }
+        .content {
+            padding: 20px;
+        }
+        .card {
+            background-color: #4a69bd;
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin: 10px;
+        }
+        .card h3 {
+            font-size: 1.2rem;
+        }
+        .card h1 {
+            font-size: 3rem;
+        }
+        .page {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .page h1 {
+            font-size: 24px;
+            color: black;
+        }
+        .page .btn-group button {
+            margin-left: 10px;
+        }
