@@ -14,7 +14,12 @@
         <link rel="stylesheet" href="../styles/index.css">
         <nav class="navbar w-100 justify-content-between py-2 navbar-dark bg-dark">
             <div class="container-fluid">
-                <img src="../../img/SLU Logo.png" class="mb-2" style="height: 35px;">
+                <div class="d-flex align-items-center">
+                    <img src="../../img/SLU Logo.png" class="mb-2" style="height: 35px;">
+                    <button class="navbar-toggler ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminSidebar" aria-controls="adminSidebar">
+                        <img src="../../img/icons/menus.png" alt="Menu" style="height: 25px;">
+                    </button>
+                </div>
                 <a class="navbar-brand text-light">Document Reviewer</a>
                 <form class="form">
                     <div class="row">
@@ -55,5 +60,16 @@
             </div>
         </div>
     </header>
+
+    <!-- Admin Sidebar -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="adminSidebar" aria-labelledby="adminSidebarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="adminSidebarLabel">Menu</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <?php include '/rev_sidebar.php'; ?>
+        </div>
+    </div>
 </body>
 </html>

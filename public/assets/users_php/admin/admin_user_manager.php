@@ -8,7 +8,7 @@
   <link href="../../styles/admin.css" rel="stylesheet">
   <link rel="icon" type="png" href="../../img/SLU Logo.png"> 
 </head>
- <body>
+ <bod>
  <header>
     <?php include "../general/header.php";?>
     </header>
@@ -111,5 +111,8 @@
     </div>
    </div>
   </div>
+  <footer>
+  <?php include "../general/footer.php";?>
+  </footer>
  </body>
 </html>
