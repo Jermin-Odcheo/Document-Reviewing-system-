@@ -9,99 +9,146 @@
     <link href="../../styles/document.css" rel="stylesheet">
     <link rel="icon" type="png" href="../../img/SLU Logo.png">
 </head>
-
-<body>
-    <link href="../../styles/document.css" rel="stylesheet">
-    <link rel="icon" type="png" href="../../img/SLU Logo.png">
-    </head>
-
     <body>
+        <header>
         <?php include "./rev_header.php"; ?>
         </header>
-        <div class="template-gallery">
-            <h1>Start a new document</h1>
-            <div class="templates">
-                <div class="template">
-                    <img src="https://via.placeholder.com/150x200" alt="Blank Document">
-                    <p>Blank Document</p>
-                </div>
-                <div class="template">
-                    <img src="https://via.placeholder.com/150x200" alt="Report">
-                    <p>Report</p>
-                </div>
-                <div class="template">
-                    <img src="https://via.placeholder.com/150x200" alt="Essay">
-                    <p>Essay</p>
-                </div>
-            </div>
-        </div>
-        </div>
-
-        <div class="unreviewed-documents">
-            <h2>Unreviewed Documents</h2>
-            <div class="documents">
-                <div class="document unreviewed">
-                    <img src="https://via.placeholder.com/150x200" alt="Document 5">
-                    <p>Document 5</p>
-                </div>
-                <div class="document unreviewed">
-                    <img src="https://via.placeholder.com/150x200" alt="Document 6">
-                    <p>Document 6</p>
-                </div>
-                <div class="document unreviewed">
-                    <img src="https://via.placeholder.com/150x200" alt="Document 7">
-                    <p>Document 7</p>
-                </div>
-                <div class="document unreviewed">
-                    <img src="https://via.placeholder.com/150x200" alt="Document 8">
-                    <p>Document 8</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="reviewed-documents">
-            <h2>Reviewed Documents</h2>
-            <div class="documents">
-                <div class="document reviewed">
-                    <img src="https://via.placeholder.com/150x200" alt="Document 9">
-                    <p>Document 9</p>
-                </div>
-                <div class="document reviewed">
-                    <img src="https://via.placeholder.com/150x200" alt="Document 10">
-                    <p>Document 10</p>
-                </div>
-                <div class="document reviewed">
-                    <img src="https://via.placeholder.com/150x200" alt="Document 11">
-                    <p>Document 11</p>
-                </div>
-                <div class="document reviewed">
-                    <img src="https://via.placeholder.com/150x200" alt="Document 12">
-                    <p>Document 12</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="updated-documents">
-            <h2>Updated Documents</h2>
-            <div class="documents">
-                <div class="document updated">
-                    <img src="https://via.placeholder.com/150x200" alt="Document 13">
-                    <p>Document 13</p>
-                </div>
-                <div class="document updated">
-                    <img src="https://via.placeholder.com/150x200" alt="Document 14">
-                    <p>Document 14</p>
-                </div>
-                <div class="document updated">
-                    <img src="https://via.placeholder.com/150x200" alt="Document 15">
-                    <p>Document 15</p>
-                </div>
-                <div class="document updated">
-                    <img src="https://via.placeholder.com/150x200" alt="Document 16">
-                    <p>Document 16</p>
-                </div>
-            </div>
-        </div>
+  <div class="container mt-4">
+   <div class="template-gallery mb-4">
+    <h5>
+     Start a new document
+    </h5>
+    <div class="d-flex">
+     <div class="me-3">
+      <img alt="Blank document template" height="170" src="https://storage.googleapis.com/a1aa/image/oltMoPJVGL5pCBiT0GDGhK8EhcDDYhotebiMGDce4RQvi2HUA.jpg" width="100"/>
+      <p class="text-center">
+       Blank document
+      </p>
+     </div>
+     <div class="me-3">
+     <img alt="Blank document template" height="170" src="https://storage.googleapis.com/a1aa/image/oltMoPJVGL5pCBiT0GDGhK8EhcDDYhotebiMGDce4RQvi2HUA.jpg" width="100"/>
+      <p class="text-center">
+       Blank document
+      </p>
+     </div>
+     <div class="me-3">
+     <img alt="Blank document template" height="170" src="https://storage.googleapis.com/a1aa/image/oltMoPJVGL5pCBiT0GDGhK8EhcDDYhotebiMGDce4RQvi2HUA.jpg" width="100"/>
+      <p class="text-center">
+       Blank document
+      </p>
+     </div>
+     <div class="me-3">
+     <img alt="Blank document template" height="170" src="https://storage.googleapis.com/a1aa/image/oltMoPJVGL5pCBiT0GDGhK8EhcDDYhotebiMGDce4RQvi2HUA.jpg" width="100"/>
+      <p class="text-center">
+       Blank document
+      </p>
+     </div>
+     <div class="me-3">
+     <img alt="Blank document template" height="170" src="https://storage.googleapis.com/a1aa/image/oltMoPJVGL5pCBiT0GDGhK8EhcDDYhotebiMGDce4RQvi2HUA.jpg" width="100"/>
+      <p class="text-center">
+       Blank document
+      </p>
+     </div>
+     <div class="me-3">
+     <img alt="Blank document template" height="170" src="https://storage.googleapis.com/a1aa/image/oltMoPJVGL5pCBiT0GDGhK8EhcDDYhotebiMGDce4RQvi2HUA.jpg" width="100"/>
+      <p class="text-center">
+       Blank document
+      </p>
+     </div>
+     <div class="me-3">
+     <img alt="Blank document template" height="170" src="https://storage.googleapis.com/a1aa/image/oltMoPJVGL5pCBiT0GDGhK8EhcDDYhotebiMGDce4RQvi2HUA.jpg" width="100"/>
+      <p class="text-center">
+       Blank document
+      </p>
+     </div>
+    </div>
+   </div>
+   <div class="recent-documents">
+    <h5>
+     Recent documents
+    </h5>
+    <div class="row">
+     <div class="col-md-3 mb-3">
+      <div class="card">
+       <img alt="Document thumbnail" class="card-img-top" height="300" src="https://storage.googleapis.com/a1aa/image/BvmLfgo9pBTADC0fcL7D1fMqBHOCTiq9PvcI4NR8ZnNjFtPoA.jpg" width="200"/>
+       <div class="card-body">
+        <h6 class="card-title">
+         HexOff_IT Project3 (MDA ...
+        </h6>
+        <p class="card-text">
+         Jan 22, 2025
+        </p>
+       </div>
+      </div>
+     </div>
+     <div class="col-md-3 mb-3">
+      <div class="card">
+       <img alt="Document thumbnail" class="card-img-top" height="300" src="https://storage.googleapis.com/a1aa/image/BvmLfgo9pBTADC0fcL7D1fMqBHOCTiq9PvcI4NR8ZnNjFtPoA.jpg" width="200"/>
+       <div class="card-body">
+        <h6 class="card-title">
+         (Revised 2025) HexOff_IT...
+        </h6>
+        <p class="card-text">
+         Jan 22, 2025
+        </p>
+       </div>
+      </div>
+     </div>
+     <div class="col-md-3 mb-3">
+      <div class="card">
+       <img alt="Document thumbnail" class="card-img-top" height="300" src="https://storage.googleapis.com/a1aa/image/BvmLfgo9pBTADC0fcL7D1fMqBHOCTiq9PvcI4NR8ZnNjFtPoA.jpg" width="200"/>
+       <div class="card-body">
+        <h6 class="card-title">
+         (Journal) HexOff_IT Proje...
+        </h6>
+        <p class="card-text">
+         Jan 21, 2025
+        </p>
+       </div>
+      </div>
+     </div>
+     <div class="col-md-3 mb-3">
+      <div class="card">
+       <img alt="Document thumbnail" class="card-img-top" height="300" src="https://storage.googleapis.com/a1aa/image/BvmLfgo9pBTADC0fcL7D1fMqBHOCTiq9PvcI4NR8ZnNjFtPoA.jpg" width="200"/>
+       <div class="card-body">
+        <h6 class="card-title">
+         pp.74-75_Sampalok_Jen...
+        </h6>
+        <p class="card-text">
+         Jan 20, 2025
+        </p>
+       </div>
+      </div>
+     </div>
+     <div class="col-md-3 mb-3">
+      <div class="card">
+       <img alt="Document thumbnail" class="card-img-top" height="300" src="https://storage.googleapis.com/a1aa/image/BvmLfgo9pBTADC0fcL7D1fMqBHOCTiq9PvcI4NR8ZnNjFtPoA.jpg" width="200"/>
+       <div class="card-body">
+        <h6 class="card-title">
+         Compilation of our Notes
+        </h6>
+        <p class="card-text">
+         Jan 20, 2025
+        </p>
+       </div>
+      </div>
+     </div>
+     <div class="col-md-3 mb-3">
+      <div class="card">
+       <img alt="Document thumbnail" class="card-img-top" height="300" src="https://storage.googleapis.com/a1aa/image/BvmLfgo9pBTADC0fcL7D1fMqBHOCTiq9PvcI4NR8ZnNjFtPoA.jpg" width="200"/>
+       <div class="card-body">
+        <h6 class="card-title">
+         Hello
+        </h6>
+        <p class="card-text">
+         Jan 20, 2025
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
         <footer class="fixed-bottom">
             <?php include "../general/footer.php" ?>
         </footer>
