@@ -31,10 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 } 
                 exit;
             } else {
-                $error_message = "Access Denied: Incorrect password.";
+                $error_message = "Incorrect email or password.";
             }
         } else {
-            $error_message = "Access Denied: Account not found";
+            $error_message = "Incorrect email or password.";
         }
         $stmt->close();
     } else {
