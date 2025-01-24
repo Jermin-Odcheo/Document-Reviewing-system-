@@ -73,12 +73,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../../styles/registration.css">
     <link rel="icon" type="png" href="../../img/SLU Logo.png">
     <style>
@@ -87,6 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     </style>
 </head>
+
 <body>
 
     <div class="container py-5 mt-5">
@@ -138,27 +141,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="row g-4 align-items-center">
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">Password</h6>
-                                    <div class="form-floating">
-                                        <input type="password" class="form-control <?php echo $password_class; ?>" id="password" name="password" value="<?php echo htmlspecialchars($password); ?>" required>
+                                    <div class="form-floating position-relative">
+                                        <input type="password" class="form-control" id="password" name="password" required>
                                         <label for="password">Create your password</label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="showPwd1">
-                                            <label class="form-check-label" for="showPwd1"> Show Password</label>
-                                        </div>
+                                        <!-- Eye Icon Button -->
+                                        <button type="button" class="password-toggle" onclick="togglePasswordVisibility('password', this)">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">Confirm Password</h6>
-                                    <div class="form-floating">
-                                        <input type="password" class="form-control <?php echo $password_class; ?>" id="confirm_password" name="confirm_password" value="<?php echo htmlspecialchars($confirm_password); ?>" required>
+                                    <div class="form-floating position-relative">
+                                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
                                         <label for="confirm_password">Repeat your password</label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="showPwd2">
-                                            <label class="form-check-label" for="showPwd2"> Show Password</label>
-                                        </div>
+                                        <!-- Eye Icon Button -->
+                                        <button type="button" class="password-toggle" onclick="togglePasswordVisibility('confirm_password', this)">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
+
+
+
 
                             <div class="form-check mt-4">
                                 <input class="form-check-input" type="checkbox" id="terms" required>
@@ -199,7 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 
     <footer class="bottom">
-        <?php include "./footer.php"?>
+        <?php include "./footer.php" ?>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../../../src/js/show_pwd.js"></script>
@@ -217,4 +223,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         });
     </script>
 </body>
+
 </html>

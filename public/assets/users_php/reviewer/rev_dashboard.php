@@ -1,4 +1,5 @@
 <html>
+
 <head>
    <title>
       TMDD - Reviewer Dashboard
@@ -7,6 +8,7 @@
    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
    <link href="../../styles/admin.css" rel="stylesheet">
    <link rel="icon" type="png" href="../../img/SLU Logo.png">
+   <link rel="stylesheet" type="text/css" href="../../styles/rev_dashboard.css">
 </head>
 
 <body>
@@ -49,8 +51,8 @@
       </div>
    </div>
    <footer class="bottom">
-        <?php include "../general/footer.php"?>
-    </footer>
+      <?php include "../general/footer.php" ?>
+   </footer>
 </body>
 
 </html>
