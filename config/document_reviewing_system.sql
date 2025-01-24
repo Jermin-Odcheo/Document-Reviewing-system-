@@ -47,6 +47,7 @@ DROP TABLE IF EXISTS `documents`;
 CREATE TABLE IF NOT EXISTS `documents` (
   `doc_id` int(11) NOT NULL AUTO_INCREMENT,
   `uploader_id` int(11) NOT NULL,
+  `file_blob` LONGBLOB NULL,
   `file_path` varchar(250) NOT NULL,
   `date_uploaded` date NOT NULL,
   `date_approved` date DEFAULT NULL,

@@ -86,6 +86,28 @@ body::before {
 .link-secondary:hover {
     text-decoration: underline;
 }
+/* Aligns the toggle button within the form field */
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 18px; /* Adjusts horizontal spacing from the input border */
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+}
+
+/* Styles for the icon */
+.password-toggle i {
+    font-size: 1.70rem; /* Adjust icon size */
+    color: #6c757d; /* Default color for the icon */
+}
+
+/* Hover effect for the icon */
+.password-toggle:hover i {
+    color: #007bff; /* Change color on hover */
+}
 
 @media (max-width: 768px) {
     .custom-card-size {

@@ -22,7 +22,6 @@
 
 .sidebar-header {
     padding: 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .logo-container {
@@ -127,6 +126,24 @@
 .version {
     font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.7);
+}
+
+.user-greeting {
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffffff;
+    
+    text-align: center;
+}
+
+/* Focus Styles for Accessibility */
+.sidebar-nav a:focus {
+    outline: none;
+    background: var(--hover-bg);
+    color: var(--hover-color);
+    transform: translateX(8px);
+    box-shadow: inset 6px 0 0 var(--hover-color);
 }
 
 /* Mobile Responsive */

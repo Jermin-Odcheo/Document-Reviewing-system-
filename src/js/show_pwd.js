@@ -1,17 +1,15 @@
-function togglePasswordVisibility(passwordFieldId, checkboxId) {
-    const passwordField = document.getElementById(passwordFieldId);
-    const checkbox = document.getElementById(checkboxId);
+function togglePasswordVisibility(passwordFieldId, button) {
+  const passwordField = document.getElementById(passwordFieldId);
+  const icon = button.querySelector("i");
 
-    checkbox.addEventListener('change', function() {
-        if (checkbox.checked) {
-            passwordField.type = 'text';
-        } else {
-            passwordField.type = 'password'; 
-        }
-    });
+  // Toggle the type attribute
+  if (passwordField.type === "password") {
+    passwordField.type = "text";
+    icon.classList.remove("bi-eye");
+    icon.classList.add("bi-eye-slash");
+  } else {
+    passwordField.type = "password";
+    icon.classList.remove("bi-eye-slash");
+    icon.classList.add("bi-eye");
+  }
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-    togglePasswordVisibility('password', 'showPwd1');
-    togglePasswordVisibility('confirm_password', 'showPwd2');
-});
