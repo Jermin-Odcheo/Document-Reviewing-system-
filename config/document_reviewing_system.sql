@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 23, 2025 at 08:37 AM
+-- Generation Time: Jan 24, 2025 at 01:23 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -109,14 +109,22 @@ CREATE TABLE IF NOT EXISTS `users` (
   `forgot_pass` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`user_id`, `email`, `password`, `first_name`, `last_name`, `account_type`, `online_status`, `forgot_pass`) VALUES
-(1, 'example@gmail.com', '$2y$10$uxHkj9ak7t0GrgSxlLaCOuAhxDFHJ4mCiJ7Dj0.dNpdKTw6//XeNy', 'Anthony', 'tagorda', 'Uploader', 0, 0);
+(1, 'admin@slu.edu.ph', '$2y$10$uxHkj9ak7t0GrgSxlLaCOuAhxDFHJ4mCiJ7Dj0.dNpdKTw6//XeNy', 'Navi', 'Gator', 'Admin', 0, 0),
+(2, '2227828@slu.edu.ph', '$2y$10$7DCRWeuTaVRtSGsXcmuWR.jZWMnehIh9U/dmK9aaQTk2LbbSVdFqe', 'Justin', 'Montemayor', 'Reviewer', 0, 0),
+(3, '2222484@slu.edu.ph', '$2y$10$eN1APMZoUmd2PRhVnWjBq.LHmxBPD0W31lGP/1wopqOUEJEjaGFhW', 'Carl', 'Pascua', 'Uploader', 0, 0),
+(4, '2202887@slu.edu.ph', '$2y$10$l8BEd//uS/MIewZovI/UHeUj3AlpbpsBit0wDd2QRejs0grZvmf7q', 'Justine', 'Lucas', 'Reviewer', 0, 0),
+(5, '2224981@slu.edu.ph', '$2y$10$htGjXhDfjNUD0kwEuYufUOXw6wYISEzUm8S16jiOGm2j/bjDtvnEy', 'Jermin', 'Odcheo', 'Uploader', 0, 0),
+(6, '2223448@slu.edu.ph', '$2y$10$AHFYI4jFwS/OtWwV6cd8muqCD4nIqaqfPKFHzGbQSeVCuFgqk3cAu', 'Dorothy', 'Lopez', 'Uploader', 0, 0),
+(7, '2166734@slu.edu.ph', '$2y$10$oEyy91FfZWQzFNtX91S5Xu3PuGTnHzVEPPD/pcnz783m8BLIe0L/y', 'Harvey', 'Chua', 'Uploader', 0, 0),
+(8, '2223258@slu.edu.ph', '$2y$10$CQxTApjgtogqvJgimzx6te6BD4QDa7cAtgiQBmQeK/9phGqJuhVg6', 'Mike', 'Mayangao', 'Reviewer', 0, 0),
+(9, '2222783@slu.edu.ph', '$2y$10$3MnhbbaxXk4Spjs5U0fEeuJPzrnsOj7eO9XJ.ujhA9OR6Gk0utymO', 'Evan', 'Garcia', 'Uploader', 0, 0);
 
 --
 -- Constraints for dumped tables
