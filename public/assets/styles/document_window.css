@@ -608,7 +608,7 @@
 /* Comment Form Styles */
 #commentForm {
     position: absolute;
-    background: white;
+    background: grey;
     padding: 15px;
     border-radius: 4px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -626,14 +626,7 @@
     color: #666;
 }
 
-#commentInput {
-    width: 100%;
-    min-height: 100px;
-    margin: 10px 0;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
+
 
 .page {
     position: relative;
