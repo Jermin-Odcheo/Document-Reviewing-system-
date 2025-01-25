@@ -32,7 +32,7 @@
                             </div>
 
 
-                            <div class="row g-4">
+                            <div class="row g-3">
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">First Name</h6>
                                     <div class="form-floating">
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
 
-                            <div class="row g-4 mt-3">
+                            <div class="row g-3 mt-3">
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">Email Address</h6>
                                     <div class="form-floating">
@@ -71,7 +71,7 @@
                                 </div>
                             </div>
 
-                            <div class="row g-4 mt-3">
+                            <div class="row g-3 mt-3">
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">Password</h6>
                                     <div class="form-floating">
@@ -88,14 +88,14 @@
                                 </div>
                             </div>
 
-                    
-
-                            <div class="text-center mt-4">
-                                <button type="submit" class="btn btn-primary" style="padding: 0.5rem 1.5rem;">Add User</button>
-                            </div>
+                           
 
                             <div class="text-center mt-3">
-                                <p>Changed your mind? <a href="\public\assets\users_php\admin\admin_user_manager.php" class="link-secondary">Go Back</a></p>
+                                <button type="submit" class="btn btn-primary" style="padding: 0.5rem 1rem; width: 170px;">Add User</button>
+                            </div>
+
+                            <div class="text-center mt-1">
+                                <a href="\public\assets\users_php\admin\admin_user_manager.php" class="btn btn-secondary" style="padding: 0.5rem 1rem; width: 170px;">Back</a>
                             </div>
                         </form>
                     </div>
@@ -104,7 +104,6 @@
         </div>
     </div>
 
-    // ... existing code ...
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -113,7 +112,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>The user has been added successfully!</p>
+                    <p>User added successfully!</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="okButton">OK</button>
@@ -122,13 +121,6 @@
         </div>
     </div>
 
-    <script>
-        document.querySelector('form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form submission for demonstration
-            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
-            successModal.show();
-        });
-    </script>
     <footer class="bottom">
         <?php include "./footer.php"?>
     </footer>
