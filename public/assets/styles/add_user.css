@@ -1,6 +1,6 @@
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(120deg, #F9C736, #AAAAAA, #33368D);
+    background: linear-gradient(90deg, #4a69bd 0%, #3498db 100%);
     background-attachment: fixed;
     background-size: cover;
     min-height: 100vh;
@@ -24,6 +24,8 @@ body::before {
 
 h1 {
     font-weight: bolder;
+    ;
+
 }
 
 .custom-card-size {
