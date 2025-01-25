@@ -1,5 +1,4 @@
 <?php $current_page = basename($_SERVER['PHP_SELF'], ".php");?>
-
 <link href="../../assets/styles/sidebar.css" rel="stylesheet">
 <div class="sidebar">
     <nav class="sidebar-menu">

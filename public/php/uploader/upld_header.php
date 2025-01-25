@@ -11,7 +11,6 @@
 
 <body>
     <header>
-        <link rel="stylesheet" href="../../assets/styles/index.css">
         <nav class="navbar w-100 justify-content-between py-2 navbar-dark bg-dark">
             <div class="container-fluid">
                 <div class="d-flex align-items-center">

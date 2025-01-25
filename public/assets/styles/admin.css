@@ -9,7 +9,7 @@ body {
     min-height: 100vh;
     position: relative;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e0f7fa 100%);
+    background: linear-gradient(135deg, #f8f9fa 0%, #d9b100 100%);
 }
 
 .header {

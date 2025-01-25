@@ -23,11 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['online_status'] = $online_status;
 
                 if ($account_type == 'Reviewer') {
-                    header("Location: assets/users_php/reviewer/rev_dashboard.php");
+                    header("Location: php/reviewer/rev_dashboard.php");
                 } elseif ($account_type == 'Uploader') {
-                    header("Location: assets/users_php/uploader/upld_dashboard.php");
+                    header("Location: php/uploader/upld_dashboard.php");
                 } elseif ($account_type == 'Admin') {
-                    header("Location: assets/users_php/admin/admin_dashboard.php");
+                    header("Location: php/admin/admin_dashboard.php");
                 } 
                 exit;
             } else {
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="container">
         <div class="left-section">
-            <img src="../public/assets/img/SLU Logo.png" alt="Logo">
+            <img src="./assets/img/SLU Logo.png" alt="Logo">
         </div>
         <div class="right-section">
             <form class="login-form" action="index.php" method="POST">

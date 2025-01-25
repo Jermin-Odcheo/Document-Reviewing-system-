@@ -11,13 +11,12 @@
 
 <body>
     <header>
-        <link rel="stylesheet" href="../../assets/styles/index.css">
         <nav class="navbar w-100 justify-content-between py-2 navbar-dark bg-dark">
             <div class="container-fluid">
                 <div class="d-flex align-items-center">
-                    <img src="../../img/SLU Logo.png" class="mb-2" style="height: 35px;">
+                    <img src="../../assets/img/SLU Logo.png" class="mb-2" style="height: 35px;">
                     <button class="navbar-toggler ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminSidebar" aria-controls="adminSidebar">
-                        <img src="../../img/icons/menus.png" alt="Menu" style="height: 25px;">
+                        <img src="../../assets/img/icons/menus.png" alt="Menu" style="height: 25px;">
                     </button>
                 </div>
                 <a class="navbar-brand text-light">Document Reviewer</a>
@@ -45,7 +44,7 @@
         <!-- User Modal -->
         <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content justify-content-between align-items-center p-2">
                     <div class="modal-header">
                         <h5 class="modal-title" id="userModalLabel">User Options</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

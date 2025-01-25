@@ -1,3 +1,4 @@
+<?php $current_page = basename($_SERVER['PHP_SELF'], ".php");?>
 <link href="../../assets/styles/sidebar.css" rel="stylesheet">
 <div class="sidebar">
     <div class="sidebar-header">
