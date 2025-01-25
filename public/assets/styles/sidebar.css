@@ -133,7 +133,6 @@
     font-size: 1.2rem;
     font-weight: bold;
     color: #ffffff;
-    
     text-align: center;
 }
 
@@ -145,6 +144,24 @@
     transform: translateX(8px);
     box-shadow: inset 6px 0 0 var(--hover-color);
 }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Black with transparency */
+    z-index: 1030; /* Behind the sidebar but above other elements */
+    display: none; /* Hidden by default */
+}
+
+.overlay.active {
+    display: block; /* Show when active */
+}
+
+
+
 
 /* Mobile Responsive */
 @media (max-width: 768px) {

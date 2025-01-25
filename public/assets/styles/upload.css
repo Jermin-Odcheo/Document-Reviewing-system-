@@ -1,0 +1,50 @@
+.upload-box {
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    background-color: #f8f9fa;
+    transition: border-color 0.3s ease;
+}
+
+.upload-box.dragover {
+    border-color: #4a69bd;
+    background-color: #f1f4fb;
+}
+
+.upload-box i {
+    font-size: 50px;
+    color: #4a69bd;
+}
+
+.file-info {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.progress {
+    height: 10px;
+    margin-top: 10px;
+}
+
+.upload-actions {
+    margin-top: 5px;
+}
+
+.upload-actions button {
+    padding: 2px 8px;
+    font-size: 0.8rem;
+}
+
+.file-format-icon {
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+.upload-status {
+    font-size: 0.85rem;
+    color: #666;
+}
