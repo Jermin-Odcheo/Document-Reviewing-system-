@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="signup-container">
                     <span>Don't have an account?</span>
-                    <a href="./assets/users_php/general/registration.php">Create an Account</a>
+                    <a href="./php/general/registration.php">Create an Account</a>
                 </div>
             </form>
         </div>
