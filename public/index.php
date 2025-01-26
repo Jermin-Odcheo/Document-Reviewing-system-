@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <input type="checkbox" id="showPassword" class="form-check-input">
                         <label for="showPassword">Show Password</label>
                     </div>
-                    <a href="forgot-password.php" class="forgot-link">Forgot password?</a>
+                    <a href="./php/general/confirmations/forget_password.php" class="forgot-link">Forgot password?</a>
                 </div>
 
                 <button type="submit">Log In</button>
