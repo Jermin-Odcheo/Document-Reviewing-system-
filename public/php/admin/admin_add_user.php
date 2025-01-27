@@ -4,34 +4,29 @@
     $email = "";
     $password = "";
     $account_type = "";
-
-    include "C:\wamp64\www\Document-Reviewing-system-\config\db.php";
-
     $error_message = "";
     $success_message = "";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $first_name = $_POST["first_name"];
-        $last_name = $_POST["last_name"];
-        $email = $_POST["email"];
-        $account_type = $_POST["account_type"];
-        $password = $_POST["password"];
-        $confirm_password = $_POST["confirm_password"];
+        include '../../../config/db.php';
+        
+        $first_name = $db->real_escape_string(trim(preg_replace('/\s+/', ' ', $_POST['first_name'])));
+        $last_name = $db->real_escape_string(trim(preg_replace('/\s+/', ' ', $_POST['last_name'])));
+        $email = $db->real_escape_string($_POST['email']);
+        $password = $_POST['password'];
+        $confirm_password = $_POST['confirm_password'];
         
         do {
-            // Check for empty fields
             if (empty($first_name) || empty($last_name) || empty($email) || empty($password) || empty($account_type) || empty($confirm_password)) {
                 $error_message = "All fields are required";
                 break;
             }
 
-            // Check if passwords match
             if ($password !== $confirm_password) {
                 $error_message = "Passwords do not match";
                 break;
             }
 
-            // Check if the email already exists
             $email_check_query = "SELECT user_id FROM users WHERE email = ?";
             $stmt = $db->prepare($email_check_query);
             $stmt->bind_param("s", $email);
@@ -43,10 +38,8 @@
                 break;
             }
 
-            // Hash the password for security
             $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-            // Insert into database
             $sql = "INSERT INTO users (first_name, last_name, email, password, account_type) VALUES (?, ?, ?, ?, ?)";
             $stmt = $db->prepare($sql);
             $stmt->bind_param("sssss", $first_name, $last_name, $email, $hashed_password, $account_type);
@@ -57,7 +50,6 @@
                 break;
             }
 
-            // Reset input fields
             $first_name = "";
             $last_name = "";
             $email = "";
@@ -72,8 +64,6 @@
     }
 ?>
 
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -120,14 +110,14 @@
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">First Name</h6>
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="first_name" name="first_name" value="" required>
+                                        <input type="text" class="form-control" id="first_name" name="first_name" value="">
                                         <label for="first_name">Enter your first name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">Last Name</h6>
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="last_name" name="last_name" value="" required>
+                                        <input type="text" class="form-control" id="last_name" name="last_name" value="">
                                         <label for="last_name">Enter your last name</label>
                                     </div>
                                 </div>
@@ -137,14 +127,14 @@
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">Email Address</h6>
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" name="email" value="" required>
+                                        <input type="email" class="form-control" id="email" name="email" value="">
                                         <label for="email">Enter your email address</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">User Role</h6>
                                     <div class="form-floating">
-                                        <select class="form-select" id="account_type" name="account_type" required>
+                                        <select class="form-select" id="account_type" name="account_type">
                                             <option value="" selected disabled>Select a role</option>
                                             <option value="admin">Admin</option>
                                             <option value="uploader">Uploader</option>
@@ -168,14 +158,14 @@
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">Password</h6>
                                     <div class="form-floating">
-                                        <input type="password" class="form-control" id="password" name="password" value="" required>
+                                        <input type="password" class="form-control" id="password" name="password" value="">
                                         <label for="password">Create your password</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">Confirm Password</h6>
                                     <div class="form-floating">
-                                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" value="" required>
+                                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" value="">
                                         <label for="confirm_password">Repeat your password</label>
                                     </div>
                                 </div>
@@ -222,7 +212,7 @@
     </div>
 
     <footer class="bottom">
-        <?php include "./footer.php"?>
+        <?php include "../general/footer.php"?>
     </footer>
 </body>
 </html>

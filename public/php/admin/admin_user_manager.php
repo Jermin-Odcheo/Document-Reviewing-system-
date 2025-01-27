@@ -65,18 +65,12 @@
           ?>
         </tbody>
       </table>
-      <a class="btn btn-primary" href="add_user.php" role="button">+ Add User</a>
+      <a class="btn btn-primary" href="admin_add_user.php" role="button">+ Add User</a>
     </div>
   </div>
 </div>
 <footer class="bottom">
   <?php include "../general/footer.php"; ?>
 </footer>
-
-<script>
-  document.getElementById('addUserBtn').addEventListener('click', function() {
-    window.location.href = 'admin_add_user.php';
-  });
-</script>
 </body>
 </html>
