@@ -85,6 +85,15 @@ body {
     margin-left: 10px;
 }
 
+.table-light {
+    background-color: #ffffff !important;
+  }
+  
+  .table-primary {
+    background-color: #d0e7ff !important; /* Light blue */
+  }
+  
+
 /* Add media query for responsiveness */
 @media (max-width: 768px) {
     .content {

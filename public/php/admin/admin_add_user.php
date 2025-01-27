@@ -122,7 +122,7 @@
     </div>
 
     <footer class="bottom">
-        <?php include "./footer.php"?>
+        <?php include "../general/footer.php"?>
     </footer>
 </body>
 </html>
