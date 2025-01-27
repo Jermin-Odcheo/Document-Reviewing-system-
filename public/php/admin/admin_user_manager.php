@@ -41,7 +41,7 @@
         <tbody>
           <?php
           include "../../../config/db.php"; 
-          $sql = "SELECT email, first_name, last_name, account_type FROM users";
+          $sql = "SELECT user_id, email, first_name, last_name, account_type FROM users";
           $result = $db->query($sql);
 
           if ($result->num_rows > 0) {
@@ -65,7 +65,7 @@
           ?>
         </tbody>
       </table>
-      <button class="btn btn-primary mt-3">+ Add User</button>
+      <a class="btn btn-primary" href="add_user.php" role="button">+ Add User</a>
     </div>
   </div>
 </div>
