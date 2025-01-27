@@ -47,13 +47,14 @@
           if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
               echo "<tr>
+                      <td>{$row['user_id']}</td>
                       <td>{$row['email']}</td>
                       <td>{$row['first_name']}</td>
                       <td>{$row['last_name']}</td>
                       <td>{$row['account_type']}</td>
                       <td>
-                        <button class='btn btn-primary btn-sm'>Edit</button>
-                        <button class='btn btn-danger btn-sm'>Delete</button>
+                        <a class='btn btn-primary btn-sm' href = 'edit_user.php?user_id={$row['user_id']}'>Edit</a>
+                        <a class='btn btn-danger btn-sm' href = 'delete_user.php?user_id={$row['user_id']}'>Delete</a>
                       </td>
                     </tr>";
             }
@@ -64,7 +65,7 @@
           ?>
         </tbody>
       </table>
-      <button class="btn btn-primary mt-3">+ Add User</button>
+      <a class="btn btn-primary" href="add_user.php" role="button">+ Add User</a>
     </div>
   </div>
 </div>
