@@ -1,0 +1,132 @@
+/* buttons.css */
+
+/* CSS Variables for Easy Customization */
+:root {
+  --button-primary-color: #5DADE2; /* Light blue primary color */
+  --button-hover-color: #3498DB;   /* Slightly darker blue on hover */
+  --button-active-color: #2980B9;  /* Even darker blue when active */
+  --button-disabled-color: #A9CCE3; /* Light grey-blue for disabled state */
+  --button-text-color: #ffffff;     /* Button text color */
+  --button-padding: 10px 20px;      /* Button padding */
+  --button-font-size: 14px;         /* Button font size */
+  --button-border-radius: 8px;      /* Rounded corners */
+  --button-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  --button-hover-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+  --button-transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+/* Base Button Styles */
+.pdf-button {
+  background-color: var(--button-primary-color);
+  border: none;
+  color: var(--button-text-color);
+  padding: var(--button-padding);
+  margin: 5px;
+  text-align: center;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--button-font-size);
+  border-radius: var(--button-border-radius);
+  transition: var(--button-transition);
+  box-shadow: var(--button-box-shadow);
+  cursor: pointer;
+  outline: none; /* Remove default outline */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+}
+
+/* Danger Button Variant */
+.pdf-button.danger {
+  background-color: #E74C3C; /* Red color for danger */
+}
+
+.pdf-button.danger:hover {
+  background-color: #C0392B; /* Darker red on hover */
+}
+
+.pdf-button.danger.active {
+  background-color: #A93226; /* Even darker red when active */
+}
+
+/* Icon Styling (If Using Icons) */
+.pdf-button i {
+  margin-right: 8px; /* Space between icon and text */
+  font-size: 1em; /* Ensure icon scales with text */
+}
+
+/* Hover State */
+.pdf-button:hover {
+  background-color: var(--button-hover-color);
+  transform: translateY(-2px);
+  box-shadow: var(--button-hover-shadow);
+}
+
+/* Active (Pressed) State */
+.pdf-button:active {
+  background-color: var(--button-active-color);
+  transform: translateY(0);
+  box-shadow: var(--button-box-shadow);
+}
+
+/* Disabled State */
+.pdf-button:disabled {
+  background-color: var(--button-disabled-color);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+  opacity: 0.7; /* Slight transparency to indicate disabled state */
+}
+
+/* Focus State for Accessibility */
+.pdf-button:focus {
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.5); /* Blue focus ring */
+}
+
+/* Active State for Highlighter Button */
+.pdf-button.active {
+  background-color: #2E86C1; /* Darker blue to indicate active state */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Highlight Overlay Styles */
+
+.pdf-highlight {
+  position: absolute;
+  background-color: rgba(255, 255, 0, 0.4); /* Light yellow with transparency */
+  pointer-events: none; /* Allow clicks to pass through unless interactive */
+  z-index: 10; /* Ensure it's above text */
+  transition: background-color 0.2s ease;
+}
+
+.pdf-highlight:hover {
+  background-color: rgba(255, 255, 0, 0.6); /* Slightly darker on hover */
+}
+
+#pdfInput {
+    width: 60px;  /* Fixed width for better control */
+    max-width: 100%;  /* Responsive - won't exceed container width */
+    border: 1px solid #ccc;  /* Light border for definition */
+    border-radius: 4px;  /* Rounded corners */
+    font-size: 16px;  /* Comfortable reading size */
+    box-sizing: border-box;  /* Include padding in total width */
+    text-align: center;
+}
+
+/* Optional: Add focus state for better UX */
+#pdfInput:focus {
+    outline: none;
+    border-color: #007bff;  /* Blue highlight on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);  /* Subtle glow effect */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .pdf-button {
+    padding: 8px 16px;
+    font-size: 12px;
+    margin: 3px;
+  }
+
+
+}
+
