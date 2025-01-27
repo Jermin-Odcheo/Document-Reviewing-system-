@@ -64,12 +64,18 @@
           ?>
         </tbody>
       </table>
-      <button class="btn btn-primary mt-3">+ Add User</button>
+      <button class="btn btn-primary mt-3" id="addUserBtn">+ Add User</button>
     </div>
   </div>
 </div>
 <footer class="bottom">
   <?php include "../general/footer.php"; ?>
 </footer>
+
+<script>
+  document.getElementById('addUserBtn').addEventListener('click', function() {
+    window.location.href = 'admin_add_user.php';
+  });
+</script>
 </body>
 </html>
