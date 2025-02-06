@@ -1,9 +1,9 @@
 <?php
 $error_message = '';
-$password_class = '';
-$email_class = '';
-$fname_class = '';
-$lname_class = '';
+$password_error = '';
+$email_error = '';
+$fname_error = '';
+$lname_error = '';
 $form_valid = true;
 $registration_success = false;
 
@@ -26,73 +26,62 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $confirm_password = $_POST['confirm_password'];
 
     if (empty($first_name)) {
-        $error_message = "This field is required.";
+        $fname_error = "This field is required.";
+        $fname_class = 'is-invalid';
+        $form_valid = false;
+    } elseif (!preg_match("/^[a-zA-ZÀ-ÿ\s'-.]+$/", $first_name)) {
+        $fname_error = "First Name contains invalid characters.";
         $fname_class = 'is-invalid';
         $form_valid = false;
     }
+
     if (empty($last_name)) {
-        $error_message = "This field is required.";
+        $lname_error = "This field is required.";
+        $lname_class = 'is-invalid';
+        $form_valid = false;
+    } elseif (!preg_match("/^[a-zA-ZÀ-ÿ\s'-.]+$/", $last_name)) {
+        $lname_error = "Last Name contains invalid characters.";
         $lname_class = 'is-invalid';
         $form_valid = false;
     }
+
     if (empty($email)) {
-        $error_message = "This field is required.";
+        $email_error = "This field is required.";
         $email_class = 'is-invalid';
         $form_valid = false;
+    } else {
+        $email_check_sql = "SELECT * FROM users WHERE email = '$email'";
+        $result = $db->query($email_check_sql);
+        if ($result->num_rows > 0) {
+            $email_error = "The email address is already taken.";
+            $email_class = 'is-invalid';
+            $form_valid = false;
+        }
     }
+
     if (empty($password)) {
-        $error_message = "This field is required.";
+        $password_error = "This field is required.";
         $password_class = 'is-invalid';
         $form_valid = false;
-    }
-    if (empty($confirm_password)) {
-        $error_message = "This field is required.";
+    } elseif (strlen($password) < 8 || strlen($password) > 16) {
+        $password_error = "Password must be between 8 and 16 characters.";
+        $password_class = 'is-invalid';
+        $form_valid = false;
+    } elseif ($password !== $confirm_password) {
+        $password_error = "Passwords do not match.";
         $password_class = 'is-invalid';
         $form_valid = false;
     }
 
     if ($form_valid) {
-        if (!preg_match("/^[a-zA-ZÀ-ÿ\s'-.]+$/", $first_name)) {
-            $error_message = "First Name contains invalid characters.";
-            $fname_class = 'is-invalid';
-            $form_valid = false;
-        }
-        if (!preg_match("/^[a-zA-ZÀ-ÿ\s'-.]+$/", $last_name)) {
-            $error_message = "Last Name contains invalid characters.";
-            $lname_class = 'is-invalid';
-            $form_valid = false;
-        }
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+        $sql = "INSERT INTO users (first_name, last_name, email, password, account_type, online_status, forgot_pass) 
+                VALUES ('$first_name', '$last_name', '$email', '$hashed_password', '$account_type', '$online_status', '$forgot_pass')";
 
-        $email_check_sql = "SELECT * FROM users WHERE email = '$email'";
-        $result = $db->query($email_check_sql);
-
-        if ($result->num_rows > 0) {
-            $error_message = "The email address is already taken.";
-            $email_class = 'is-invalid';
-            $form_valid = false;
-        } elseif ($password === $confirm_password) {
-            if (strlen($password) < 8 || strlen($password) > 16) {
-                $error_message = "Password must be between 8 and 16 characters.";
-                $password_class = 'is-invalid';
-                $form_valid = false;
-            } else {
-                if ($form_valid) {
-                    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-                    $sql = "INSERT INTO users (first_name, last_name, email, password, account_type, online_status, forgot_pass) 
-                            VALUES ('$first_name', '$last_name', '$email', '$hashed_password', '$account_type', '$online_status', '$forgot_pass')";
-
-                    if ($db->query($sql) === TRUE) {
-                        $registration_success = true;
-                    } else {
-                        $error_message = "Error: " . $sql . "<br>" . $db->error;
-                    }
-                }
-            }
+        if ($db->query($sql) === TRUE) {
+            $registration_success = true;
         } else {
-            $error_message = "Passwords do not match.";
-            $password_class = 'is-invalid';
-            $form_valid = false;
+            $error_message = "Error: " . $sql . "<br>" . $db->error;
         }
     }
     $db->close();
@@ -143,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <input type="text" class="form-control <?php echo $fname_class; ?>" id="first_name" name="first_name" value="<?php echo htmlspecialchars($first_name); ?>">
                                         <label for="first_name">Enter your first name</label>
                                         <div class="invalid-feedback">
-                                            <?php echo $error_message; ?>
+                                            <?php echo $fname_error; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -153,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <input type="text" class="form-control <?php echo $lname_class; ?>" id="last_name" name="last_name" value="<?php echo htmlspecialchars($last_name); ?>">
                                         <label for="last_name">Enter your last name</label>
                                         <div class="invalid-feedback">
-                                            <?php echo $error_message; ?>
+                                            <?php echo $lname_error; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -163,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <input type="email" class="form-control <?php echo $email_class; ?>" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>">
                                         <label for="email">Enter your email address</label>
                                         <div class="invalid-feedback">
-                                            <?php echo $error_message; ?>
+                                            <?php echo $email_error; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -178,7 +167,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <input type="password" class="form-control <?php echo $password_class; ?>" id="password" name="password">
                                         <label for="password">Create your password</label>
                                         <div class="invalid-feedback">
-                                            <?php echo $error_message; ?>
+                                            <?php echo $password_error; ?>
                                         </div>
                                         <button type="button" class="password-toggle" onclick="togglePasswordVisibility('password', this)">
                                             <i class="bi bi-eye"></i>
@@ -191,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <input type="password" class="form-control <?php echo $password_class; ?>" id="confirm_password" name="confirm_password">
                                         <label for="confirm_password">Repeat your password</label>
                                         <div class="invalid-feedback">
-                                            <?php echo $error_message; ?>
+                                            <?php echo $password_error; ?>
                                         </div>
                                         <button type="button" class="password-toggle" onclick="togglePasswordVisibility('confirm_password', this)">
                                             <i class="bi bi-eye"></i>
