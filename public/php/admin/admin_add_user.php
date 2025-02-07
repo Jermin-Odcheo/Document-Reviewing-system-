@@ -1,12 +1,10 @@
 <?php
-include '../../../config/db.php';
-
 $error_message = '';
-$fname_class = '';
-$lname_class = '';
-$email_class = '';
-$role_class = '';
-$password_class = '';
+$fname_error = '';
+$lname_error = '';
+$email_error = '';
+$role_error = '';
+$password_error = '';
 $form_valid = true;
 $registration_success = false;
 
@@ -15,96 +13,83 @@ $last_name = isset($_POST['last_name']) ? trim($_POST['last_name']) : '';
 $email = isset($_POST['email']) ? trim($_POST['email']) : '';
 $password = isset($_POST['password']) ? $_POST['password'] : '';
 $confirm_password = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
-$account_type = isset($_POST['user_role']) ? $_POST['user_role'] : ''; // Default to empty if not set
+$account_type = isset($_POST['user_role']) ? $_POST['user_role'] : '';
 $online_status = 0;
 $forgot_pass = 0;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    include '../../../config/db.php';
+
+    $first_name = $db->real_escape_string(trim(preg_replace('/\s+/', ' ', $_POST['first_name'])));
+    $last_name = $db->real_escape_string(trim(preg_replace('/\s+/', ' ', $_POST['last_name'])));
+    $email = $db->real_escape_string($_POST['email']);
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
 
     if (empty($first_name)) {
-        $error_message = "This field is required.";
+        $fname_error = "This field is required.";
+        $fname_class = 'is-invalid';
+        $form_valid = false;
+    } elseif (!preg_match("/^[a-zA-ZÀ-ÿ\s'-.]+$/", $first_name)) {
+        $fname_error = "First Name contains invalid characters.";
         $fname_class = 'is-invalid';
         $form_valid = false;
     }
+
     if (empty($last_name)) {
-        $error_message = "This field is required.";
+        $lname_error = "This field is required.";
+        $lname_class = 'is-invalid';
+        $form_valid = false;
+    } elseif (!preg_match("/^[a-zA-ZÀ-ÿ\s'-.]+$/", $last_name)) {
+        $lname_error = "Last Name contains invalid characters.";
         $lname_class = 'is-invalid';
         $form_valid = false;
     }
+
     if (empty($email)) {
-        $error_message = "This field is required.";
+        $email_error = "This field is required.";
         $email_class = 'is-invalid';
         $form_valid = false;
+    } else {
+        $email_check_sql = "SELECT * FROM users WHERE email = '$email'";
+        $result = $db->query($email_check_sql);
+        if ($result->num_rows > 0) {
+            $email_error = "The email address is already taken.";
+            $email_class = 'is-invalid';
+            $form_valid = false;
+        }
     }
+
     if (empty($account_type)) {
-        $error_message = "This field is required.";
+        $role_error = "This field is required.";
         $role_class = 'is-invalid';
         $form_valid = false;
     }
+
     if (empty($password)) {
-        $error_message = "This field is required.";
+        $password_error = "This field is required.";
         $password_class = 'is-invalid';
         $form_valid = false;
-    }
-    if (empty($confirm_password)) {
-        $error_message = "This field is required.";
+    } elseif (strlen($password) < 8 || strlen($password) > 16) {
+        $password_error = "Password must be between 8 and 16 characters.";
+        $password_class = 'is-invalid';
+        $form_valid = false;
+    } elseif ($password !== $confirm_password) {
+        $password_error = "Passwords do not match.";
         $password_class = 'is-invalid';
         $form_valid = false;
     }
 
     if ($form_valid) {
-        if (!preg_match("/^[a-zA-ZÀ-ÿ\s'-.]+$/", $first_name)) {
-            $error_message = "First Name contains invalid characters.";
-            $fname_class = 'is-invalid';
-            $form_valid = false;
-        }
-        if (!preg_match("/^[a-zA-ZÀ-ÿ\s'-.]+$/", $last_name)) {
-            $error_message = "Last Name contains invalid characters.";
-            $lname_class = 'is-invalid';
-            $form_valid = false;
-        }
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $error_message = "Invalid email format.";
-            $email_class = 'is-invalid';
-            $form_valid = false;
-        }
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+        $addUserSQL = "INSERT INTO users (email, password, first_name, last_name, account_type, online_status, forgot_pass) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $addUserStmt = $db->prepare($addUserSQL);
+        $addUserStmt->bind_param("sssssis", $email, $hashed_password, $first_name, $last_name, $account_type, $online_status, $forgot_pass);
 
-        if ($password !== $confirm_password) {
-            $error_message = "Passwords do not match.";
-            $password_class = 'is-invalid';
-            $form_valid = false;
-        } elseif (strlen($password) < 8 || strlen($password) > 16) {
-            $error_message = "Password must be between 8 and 16 characters.";
-            $password_class = 'is-invalid';
-            $form_valid = false;
-        }
-
-        $email_check_sql = "SELECT * FROM users WHERE email = ?";
-        $stmt = $db->prepare($email_check_sql);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $error_message = "The email address is already taken.";
-            $email_class = 'is-invalid';
-            $form_valid = false;
-        }
-        if ($form_valid) {
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-            $addUserSQL = "INSERT INTO users (email, password, first_name, last_name, account_type, online_status, forgot_pass) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            $addUserStmt = $db->prepare($addUserSQL);
-            $addUserStmt->bind_param("sssssis", $email, $hashed_password, $first_name, $last_name, $account_type, $online_status, $forgot_pass);
-
-            if ($addUserStmt->execute()) {
-                echo "<script>
-                        alert('User added successfully!');
-                        window.location.href = '/public/assets/users_php/admin/admin_user_manager.php';
-                      </script>";
-            } else {
-                $error_message = "Error: " . $addUserStmt->error;
-            }
+        if ($addUserStmt->execute()) {
+            $registration_success = true;
+        } else {
+            $error_message = "Error: " . $addUserSQL . "<br>" . $db->error;
         }
     }
     $db->close();
@@ -116,10 +101,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add User</title>
+    <title>TMDD - Document Reviewer</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="icon" type="png" href="../../assets/img/SLU Logo.png"> 
     <link rel="stylesheet" type="text/css" href="../../styles/add_user.css">
     <style>
         .container {
@@ -148,20 +134,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">First Name</h6>
                                     <div class="form-floating">
-                                        <input type="text" class="form-control <?php echo $fname_class; ?>" id="first_name" name="first_name" value="">
+                                        <input type="text" class="form-control <?php echo $fname_class; ?>" id="first_name" name="first_name" value="<?php echo htmlspecialchars($first_name); ?>">
                                         <label for="first_name">Enter your first name</label>
                                         <div class="invalid-feedback">
-                                            <?php echo $error_message; ?>
+                                            <?php echo $fname_error; ?>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">Last Name</h6>
                                     <div class="form-floating">
-                                        <input type="text" class="form-control <?php echo $lname_class; ?>" id="last_name" name="last_name" value="">
+                                        <input type="text" class="form-control <?php echo $lname_class; ?>" id="last_name" name="last_name" value="<?php echo htmlspecialchars($last_name); ?>">
                                         <label for="last_name">Enter your last name</label>
                                         <div class="invalid-feedback">
-                                            <?php echo $error_message; ?>
+                                            <?php echo $lname_error; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -171,10 +157,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="col-md-6">
                                     <h6 class="form-label mb-2">Email Address</h6>
                                     <div class="form-floating">
-                                        <input type="email" class="form-control <?php echo $email_class; ?>" id="email" name="email" value="">
+                                        <input type="email" class="form-control <?php echo $email_class; ?>" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>">
                                         <label for="email">Enter your email address</label>
                                         <div class="invalid-feedback">
-                                            <?php echo $error_message; ?>
+                                            <?php echo $email_error; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -189,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </select>
                                         <label for="user_role">Select user role</label>
                                         <div class="invalid-feedback">
-                                            <?php echo $error_message; ?>
+                                            <?php echo $role_error; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -202,8 +188,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <input type="password" class="form-control <?php echo $password_class; ?>" id="password" name="password" value="">
                                         <label for="password">Create your password</label>
                                         <div class="invalid-feedback">
-                                            <?php echo $error_message; ?>
+                                            <?php echo $password_error; ?>
                                         </div>
+                                        <button type="button" class="password-toggle" onclick="togglePasswordVisibility('password', this)">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -212,8 +201,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <input type="password" class="form-control <?php echo $password_class; ?>" id="confirm_password" name="confirm_password" value="">
                                         <label for="confirm_password">Repeat your password</label>
                                         <div class="invalid-feedback">
-                                            <?php echo $error_message; ?>
+                                            <?php echo $password_error; ?>
                                         </div>
+                                        <button type="button" class="password-toggle" onclick="togglePasswordVisibility('confirm_password', this)">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -223,7 +215,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
 
                             <div class="text-center mt-3">
-                                <p>Changed your mind? <a href="\public\assets\users_php\admin\admin_user_manager.php" class="link-secondary">Go Back</a></p>
+                                <p>Changed your mind? <a href="./admin_user_manager.php" class="link-secondary">Go Back</a></p>
                             </div>
                         </form>
                     </div>
@@ -252,5 +244,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <footer class="bottom">
         <?php include "../general/footer.php"?>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../src/js/show_pwd.js"></script>
+    <script src="../../../src/js/registration.js"></script>
+    <script>
+        <?php if ($registration_success): ?>
+            document.addEventListener('DOMContentLoaded', function() {
+                var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+            });
+        <?php endif; ?>
+
+        document.getElementById('okButton').addEventListener('click', function() {
+            window.location.href = './admin_user_manager.php';
+        });
+    </script>
 </body>
 </html>
