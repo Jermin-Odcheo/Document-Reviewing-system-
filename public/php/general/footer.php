@@ -8,7 +8,7 @@
 <body>
 <footer class="bg-black text-white">
     <div class="text-center justify-content-center border-top pt-2 mt-2">
-      <p class="mb-0">&copy; 2025 TMDD Interns | Alagad ni SLU </p>
+      <p class="mb-0">&copy; 2025 | Saint Louis University </p>
 </div>
 </footer>
 </body>
